@@ -1,0 +1,23 @@
+campingcampick/
+├─ AGENTS.md
+├─ CLAUDE.md
+├─ PRD.md
+├─ PROJECT_CONTEXT.md
+├─ index.html
+├─ pages/
+│  ├─ onboarding.html
+│  ├─ search.html
+│  └─ detail.html
+├─ css/
+│  ├─ common.css
+│  └─ pages.css
+├─ js/
+│  ├─ app.js
+│  └─ storage.js
+├─ assets/
+│  ├─ images/
+│  ├─ icons/
+│  └─ fonts/
+└─ .agents/
+   ├─ rules/project_rules.md
+   └─ skills/design-to-vanilla/SKILL.md
