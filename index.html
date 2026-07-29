@@ -1,171 +1,477 @@
 <!DOCTYPE html>
-<html lang="ko">
+<!--
+  ============================================================================
+  뱅크샐러드 랜딩 페이지 (Figma: 김지현_뱅크샐러드 / node 613-648 "main_page")
+  ----------------------------------------------------------------------------
+  구조
+    header               : 상단 GNB (sticky)
+    section.hero         : 메인 비주얼 + 카피
+    section.stats        : 누적 지표 3종
+    section.account-book : 가계부 소개 + 앱 목업 4종
+    section.mydata       : 마이데이터 소개 (청록 배경)
+    section.dna          : 유전자 검사 소개 (다크 배경)
+    section.features     : 핵심 강점 4종
+    section.services     : 서비스 카드 6종 (글래스 카드)
+    footer               : 사이트맵 / 회사 정보
 
+  ※ 이미지·아이콘 경로는 각 요소의 주석과 src 값에 표기했습니다.
+     실제 에셋은 Figma에서 export 후 아래 경로에 배치하세요.
+       assets/images/  : 사진·목업·일러스트 (png/jpg/webp)
+       assets/icons/   : 단색 아이콘·로고 (svg)
+  ============================================================================
+-->
+<html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>뱅크샐러드</title>
-    <meta name="description" content="나만의 자산 관리를 더 쉬운 리딩으로. 뱅크샐러드가 금융 생활을 연결합니다." />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://example.com/" />
-    <meta name="theme-color" content="#f6c84f" />
-    <link rel="icon" href="./favicon/favicon.ico" sizes="48x48" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32.png" />
-    <link rel="apple-touch-icon" href="./assets/img/favicon/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>뱅크샐러드 - 내 모든 자산과 건강을 한눈에</title>
+  <meta name="description" content="자산 조회부터 건강 분석까지, 뱅크샐러드 하나로 시작하세요." />
+
+  <!-- Pretendard: Figma 원본 타이포그래피 -->
+  <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <header class="header">
-        <div class="header_inner">
-            <a href="#" class="logo_link" aria-label="뱅크샐러드 홈페이지">
-                <span class="logo_symbol" aria-hidden="true"></span>
-                <span class="logo_text">뱅크샐러드</span>
-            </a>
-            <nav class="main_nav" aria-label="주요 이동">
-                <ul class="nav_list">
-                    <li class="nav_item"><a href="#hero_section" class="nav_link">홈</a></li>
-                    <li class="nav_item"><a href="#feature_section" class="nav_link">기능</a></li>
-                    <li class="nav_item"><a href="#benefit_section" class="nav_link">혜택</a></li>
-                    <li class="nav_item"><a href="#contact_section" class="nav_link">문의</a></li>
-                </ul>
-            </nav>
-            <div class="header_action">
-                <a href="#download" class="button button_primary">앱 다운로드</a>
-            </div>
-        </div>
-        <header class="app_header">
-            <div class="header_left">
-                <h1 class="logo">
-                    <img src="./assets/img/logo.svg" alt="뱅크샐러드 로고">
-                </h1>
-            </div>
-            <div class="header_right">
-                <button type="button" class="icon_btn" aria-label="찾기">
-                    <img src="./assets/img/search.svg" alt="찾기 아이콘">
-                </button>
-            </div>
-            <div class="header_right">
-                <button type="button" class="icon_btn" aria-label="알림">
-                    <img src="./assets/img/bell.svg" alt="알림 아이콘">
-                </button>
-            </div>
+  <!-- 키보드 사용자용 본문 바로가기 -->
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <!-- ======================================================================
+       HEADER : 로고 + GNB + 유틸 버튼
+       ====================================================================== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+
+      <!-- 로고 -->
+      <a class="logo" href="/" aria-label="뱅크샐러드 홈">
+        <!-- assets/icons/logo-symbol.svg (24×24) -->
+        <img class="logo__symbol" src="assets/icons/logo-symbol.svg" alt="" width="24" height="24" />
+        <!-- assets/icons/logo-wordmark.svg (153×26) -->
+        <img class="logo__wordmark" src="assets/icons/logo-wordmark.svg" alt="뱅크샐러드" width="153" height="26" />
+      </a>
+
+      <!-- 글로벌 내비게이션 -->
+      <nav class="gnb" id="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li><a class="gnb__link" href="#account-book">금융</a></li>
+          <li><a class="gnb__link" href="#dna">웰니스</a></li>
+          <li><a class="gnb__link" href="#services">My</a></li>
+        </ul>
+      </nav>
+
+      <!-- 유틸 영역 -->
+      <div class="header__utils">
+        <button class="icon-btn" type="button" aria-label="검색">
+          <!-- assets/icons/search.svg (24×24) -->
+          <img src="assets/icons/search.svg" alt="" width="24" height="24" />
+        </button>
+        <button class="icon-btn" type="button" aria-label="알림">
+          <!-- assets/icons/bell.svg (24×24) -->
+          <img src="assets/icons/bell.svg" alt="" width="24" height="24" />
+        </button>
+
+        <a class="btn btn--outline" href="/login">로그인</a>
+        <a class="btn btn--primary" href="/signup">회원가입</a>
+
+        <!-- 모바일 전용 햄버거 -->
+        <button class="gnb-toggle" type="button"
+                aria-label="메뉴 열기" aria-expanded="false" aria-controls="gnb">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ====================================================================
+         HERO : 배경 이미지 + 딤(30%) + 중앙 카피
+         배경 이미지 → assets/images/hero-bg.jpg (권장 1920×1200)
+         ==================================================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__dim" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <h1 class="hero__title" id="hero-title">내 모든 자산과 건강을 한눈에</h1>
+        <p class="hero__desc">자산 조회부터 건강 분석까지, 뱅크샐러드 하나로 시작하세요.</p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STATS : 누적 지표 (숫자는 JS 카운트업)
+         ==================================================================== -->
+    <section class="stats" aria-label="뱅크샐러드 주요 지표">
+      <ul class="stats__list">
+        <li class="stats__item">
+          <p class="stats__label">누적 다운로드</p>
+          <!-- data-count: 목표 숫자 / data-suffix: 뒤에 붙는 단위 -->
+          <p class="stats__value" data-count="1000" data-suffix="만">1000만</p>
+        </li>
+        <li class="stats__item">
+          <p class="stats__label">연동 관리 금액</p>
+          <p class="stats__value" data-count="410" data-suffix="조원">410조원</p>
+        </li>
+        <li class="stats__item">
+          <p class="stats__label">보안사고</p>
+          <p class="stats__value" data-count="0" data-suffix="건">0건</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ====================================================================
+         ACCOUNT BOOK : 가계부 소개 + 앱 목업 4종
+         목업 이미지 → assets/images/app-01.png ~ app-04.png (각 280×563)
+         ==================================================================== -->
+    <section class="account-book" id="account-book" aria-labelledby="account-book-title">
+      <div class="container">
+
+        <header class="section-head">
+          <p class="section-head__eyebrow">수기 입력은 이제 그만, 흩어진 소비 내역을 지금 바로 한눈에 모아보세요.</p>
+          <h2 class="section-head__title" id="account-book-title">
+            대한민국 1등 가계부, <strong>뱅크샐러드</strong> 하나면 충분합니다.
+          </h2>
         </header>
-    </header>
 
-    <main class="main">
-        <section id="hero_section" class="hero_section">
-            <div class="hero_inner">
-                <div class="hero_content">
-                    <p class="eyebrow_text">금융 생활의 새로운 기준</p>
-                    <h1 class="hero_title">뱅크샐러드로<br>내 자산을 쉽고 똑똑하게</h1>
-                    <p class="hero_description">
-                        자산, 카드, 보험, 투자까지 한 번에 연결하는 금융 플랫폼.
-                        지금 바로 뱅크샐러드와 함께 더 나은 금융 생활을 시작하세요.
-                    </p>
-                    <div class="hero_actions">
-                        <a href="#download" class="button button_primary">지금 시작하기</a>
-                        <a href="#feature_section" class="button button_secondary">기능 살펴보기</a>
-                    </div>
-                </div>
-                <div class="hero_visual" role="img" aria-label="뱅크샐러드 금융 대시보드 그래픽">
-                    <div class="hero_visual_placeholder"></div>
-                </div>
+        <!-- 앱 목업 리스트 : 01~04 순서가 곧 서비스 흐름이므로 ol 사용 -->
+        <ol class="app-list">
+          <li class="app-card js-reveal">
+            <div class="app-card__thumb">
+              <img src="assets/images/app-01.png" alt="자산 현황을 보여주는 뱅크샐러드 앱 화면"
+                   width="280" height="563" loading="lazy" />
             </div>
-        </section>
+            <div class="app-card__txt">
+              <span class="app-card__num">01</span>
+              <p class="app-card__title">한 눈에 보이는<br />내 자산</p>
+            </div>
+          </li>
 
-        <section id="feature_section" class="feature_section">
-            <div class="section_heading">
-                <p class="section_subtitle">주요 기능</p>
-                <h2 class="section_title">뱅크샐러드가 제공하는 핵심 경험</h2>
+          <li class="app-card js-reveal">
+            <div class="app-card__thumb">
+              <img src="assets/images/app-02.png" alt="소비 패턴 분석을 보여주는 뱅크샐러드 앱 화면"
+                   width="280" height="563" loading="lazy" />
             </div>
-            <div class="feature_cards">
-                <article class="feature_card">
-                    <div class="feature_icon" aria-hidden="true"></div>
-                    <h3 class="feature_title">자산 통합 관리</h3>
-                    <p class="feature_description">
-                        은행, 카드, 투자, 보험 정보를 한눈에 확인하고,
-                        맞춤 리포트를 통해 자산 흐름을 쉽게 파악할 수 있습니다.
-                    </p>
-                </article>
-                <article class="feature_card">
-                    <div class="feature_icon" aria-hidden="true"></div>
-                    <h3 class="feature_title">맞춤 금융 추천</h3>
-                    <p class="feature_description">
-                        사용자 소비 패턴과 금융 목표를 고려한
-                        맞춤 추천으로 더 나은 선택을 도와드립니다.
-                    </p>
-                </article>
-                <article class="feature_card">
-                    <div class="feature_icon" aria-hidden="true"></div>
-                    <h3 class="feature_title">실시간 자산 변화</h3>
-                    <p class="feature_description">
-                        실시간으로 변하는 자산 현황을 확인하고,
-                        빠르게 대응할 수 있는 알림 서비스를 제공합니다.
-                    </p>
-                </article>
+            <div class="app-card__txt">
+              <span class="app-card__num">02</span>
+              <p class="app-card__title">나도 몰랐던<br />내 소비 패턴</p>
             </div>
-        </section>
+          </li>
 
-        <section id="benefit_section" class="benefit_section">
-            <div class="section_heading">
-                <p class="section_subtitle">혜택</p>
-                <h2 class="section_title">더 많은 가치를 경험하세요</h2>
+          <li class="app-card js-reveal">
+            <div class="app-card__thumb">
+              <img src="assets/images/app-03.png" alt="건강 습관 관리를 보여주는 뱅크샐러드 앱 화면"
+                   width="280" height="563" loading="lazy" />
             </div>
-            <div class="benefit_list">
-                <article class="benefit_item">
-                    <h3 class="benefit_title">맞춤형 리포트</h3>
-                    <p class="benefit_description">내 금융 상태를 한 번에 확인할 수 있는 시각화 리포트를 제공합니다.</p>
-                </article>
-                <article class="benefit_item">
-                    <h3 class="benefit_title">간편한 자산 연결</h3>
-                    <p class="benefit_description">다양한 금융 계정을 간편하게 연결하고 관리할 수 있습니다.</p>
-                </article>
-                <article class="benefit_item">
-                    <h3 class="benefit_title">데이터 기반 인사이트</h3>
-                    <p class="benefit_description">나에게 필요한 금융 정보를 데이터로 분석해 제공합니다.</p>
-                </article>
+            <div class="app-card__txt">
+              <span class="app-card__num">03</span>
+              <p class="app-card__title">습관을 관리하는<br />내 건강</p>
             </div>
-        </section>
+          </li>
 
-        <section id="download" class="download_section">
-            <div class="download_inner">
-                <div class="download_content">
-                    <p class="eyebrow_text">지금 바로 시작하세요</p>
-                    <h2 class="download_title">뱅크샐러드 앱으로 금융 생활을 더 단순하게</h2>
-                    <p class="download_description">
-                        앱을 설치하고 금융 데이터를 한 곳에 모아보세요.
-                        쉽고 빠르게 자산 관리를 시작할 수 있습니다.
-                    </p>
-                    <div class="download_actions">
-                        <a href="#" class="button button_primary">앱스토어에서 받기</a>
-                        <a href="#" class="button button_secondary">구글 플레이에서 받기</a>
-                    </div>
-                </div>
+          <li class="app-card js-reveal">
+            <div class="app-card__thumb">
+              <img src="assets/images/app-04.png" alt="맞춤 금융상품 추천을 보여주는 뱅크샐러드 앱 화면"
+                   width="280" height="563" loading="lazy" />
             </div>
-        </section>
-    </main>
+            <div class="app-card__txt">
+              <span class="app-card__num">04</span>
+              <p class="app-card__title">내게 딱 맞는<br />금융상품 매칭</p>
+            </div>
+          </li>
+        </ol>
 
-    <footer class="footer">
-        <div class="footer_inner">
-            <div class="footer_brand">
-                <a href="#" class="logo_link" aria-label="뱅크샐러드 홈페이지">
-                    <span class="logo_text">뱅크샐러드</span>
-                </a>
-                <p class="footer_description">
-                    나만의 금융을 연결하는 뱅크샐러드
-                </p>
-            </div>
-            <div class="footer_links">
-                <a href="#hero_section" class="footer_link">홈</a>
-                <a href="#feature_section" class="footer_link">기능</a>
-                <a href="#benefit_section" class="footer_link">혜택</a>
-                <a href="#download" class="footer_link">다운로드</a>
-            </div>
-            <p class="footer_copy">© 2026 뱅크샐러드. All rights reserved.</p>
+        <div class="section-cta">
+          <a class="btn btn--pill" href="#app-download">앱에서 확인하기</a>
         </div>
-    </footer>
-</body>
 
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MYDATA : 마이데이터 소개 (청록 배경 + 우측 이미지 콜라주)
+         ==================================================================== -->
+    <section class="mydata" aria-labelledby="mydata-title">
+      <div class="container mydata__inner">
+
+        <div class="mydata__copy">
+          <p class="mydata__eyebrow">Since 2021년, 마이데이터 선도 기업</p>
+          <h2 class="mydata__title" id="mydata-title">
+            대한민국 마이데이터의 시작,<br /><strong>뱅크샐러드</strong>
+          </h2>
+          <p class="mydata__desc">가장 앞선 기술로 흩어진 당신의 모든 금융을 가장 완벽하게 모았습니다.</p>
+          <a class="btn btn--dark" href="#mydata-connect">마이데이터 연결하기</a>
+        </div>
+
+        <!-- 이미지 콜라주 : 메인 1 + 뱃지 2 -->
+        <div class="mydata__visual" aria-hidden="true">
+          <!-- assets/images/mydata-main.png (940×627) -->
+          <img class="mydata__img mydata__img--main" src="assets/images/mydata-main.png"
+               alt="" width="940" height="627" loading="lazy" />
+          <!-- assets/images/mydata-badge-01.png (180×196) -->
+          <img class="mydata__img mydata__img--badge-a" src="assets/images/mydata-badge-01.png"
+               alt="" width="180" height="196" loading="lazy" />
+          <!-- assets/images/mydata-badge-02.png (180×202) -->
+          <img class="mydata__img mydata__img--badge-b" src="assets/images/mydata-badge-02.png"
+               alt="" width="180" height="202" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         DNA TEST : 유전자 검사 소개 (다크 배경 + 캐릭터 카드 3종)
+         카드 일러스트 → assets/images/dna-card-01.png ~ 03.png
+         ==================================================================== -->
+    <section class="dna" id="dna" aria-labelledby="dna-title">
+      <div class="container dna__inner">
+
+        <!-- 캐릭터 카드 : 데스크톱에서 겹쳐 배치, 모바일에서 가로 스크롤 -->
+        <ul class="dna__cards">
+          <li class="dna-card dna-card--1">
+            <img src="assets/images/dna-card-01.png" alt="" width="368" height="469" loading="lazy" />
+            <div class="dna-card__label">
+              <span class="dna-card__gene">비만</span>
+              <strong class="dna-card__result">모태마름</strong>
+            </div>
+          </li>
+          <li class="dna-card dna-card--2">
+            <img src="assets/images/dna-card-02.png" alt="" width="349" height="451" loading="lazy" />
+            <div class="dna-card__label">
+              <span class="dna-card__gene">알코올 대사</span>
+              <strong class="dna-card__result">타고난 술고래</strong>
+            </div>
+          </li>
+          <li class="dna-card dna-card--3">
+            <img src="assets/images/dna-card-03.png" alt="" width="394" height="488" loading="lazy" />
+            <div class="dna-card__label">
+              <span class="dna-card__gene">칼슘 농도</span>
+              <strong class="dna-card__result">비브라늄 뼈</strong>
+            </div>
+          </li>
+          <li class="dna-card dna-card--4">
+            <img src="assets/images/dna-card-04.png" alt="" width="272" height="396" loading="lazy" />
+            <div class="dna-card__label">
+              <span class="dna-card__gene">남성형 탈모</span>
+              <strong class="dna-card__result">울창한 숲</strong>
+            </div>
+          </li>
+        </ul>
+
+        <div class="dna__copy">
+          <h2 class="dna__title" id="dna-title">금융을 넘어 건강까지,<br />나라는 데이터를 읽다</h2>
+          <p class="dna__desc">
+            유전자 검사로 미리 알아보는 나의 건강 가능성.<br />
+            매일 아침 10시, 뱅크샐러드에서 가장 특별한 선착순 경험을 만나보세요.
+          </p>
+          <a class="btn btn--pill" href="#dna-apply">무료 검사 신청하기</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FEATURES : 핵심 강점 4종
+         아이콘 → assets/images/feature-01.png ~ 04.png (각 300×300)
+         ==================================================================== -->
+    <section class="features" aria-label="뱅크샐러드의 강점">
+      <div class="container">
+        <ul class="feature-list">
+          <li class="feature js-reveal">
+            <div class="feature__icon">
+              <img src="assets/images/feature-01.png" alt="" width="300" height="300" loading="lazy" />
+            </div>
+            <h3 class="feature__title">빠르고 정확한 비교</h3>
+            <p class="feature__desc">한 번의 정보 입력으로 여러 금융상품을 쉽고 빠르게 비교해요.</p>
+          </li>
+          <li class="feature js-reveal">
+            <div class="feature__icon">
+              <img src="assets/images/feature-02.png" alt="" width="300" height="300" loading="lazy" />
+            </div>
+            <h3 class="feature__title">투명한 데이터</h3>
+            <p class="feature__desc">금융사 제휴로 검증된 정확한 정보</p>
+          </li>
+          <li class="feature js-reveal">
+            <div class="feature__icon">
+              <img src="assets/images/feature-03.png" alt="" width="300" height="300" loading="lazy" />
+            </div>
+            <h3 class="feature__title">맞춤형 분석</h3>
+            <p class="feature__desc">내 상황과 목표에 딱 맞는 상품 제안</p>
+          </li>
+          <li class="feature js-reveal">
+            <div class="feature__icon">
+              <img src="assets/images/feature-04.png" alt="" width="300" height="300" loading="lazy" />
+            </div>
+            <h3 class="feature__title">금융 알림</h3>
+            <p class="feature__desc">나를 위한 금융 혜택을 한눈에</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SERVICES : 서비스 카드 6종 (글래스 카드 / 다크 네이비 배경)
+         3D 아이콘 → assets/images/service-01.png ~ 06.png (각 150×150)
+         ==================================================================== -->
+    <section class="services" id="services" aria-label="뱅크샐러드 서비스">
+      <div class="container">
+        <ul class="service-grid">
+          <li class="service-card js-reveal">
+            <a href="#credit-care">
+              <img src="assets/images/service-01.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">신용 관리</span>
+            </a>
+          </li>
+          <li class="service-card js-reveal">
+            <a href="#loan-compare">
+              <img src="assets/images/service-02.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">대출 비교</span>
+            </a>
+          </li>
+          <li class="service-card js-reveal">
+            <a href="#saving-compare">
+              <img src="assets/images/service-03.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">예/적금 비교</span>
+            </a>
+          </li>
+          <li class="service-card js-reveal">
+            <a href="#card-compare">
+              <img src="assets/images/service-04.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">카드 비교</span>
+            </a>
+          </li>
+          <li class="service-card js-reveal">
+            <a href="#insurance">
+              <img src="assets/images/service-05.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">보험 및 건강</span>
+            </a>
+          </li>
+          <li class="service-card js-reveal">
+            <a href="#recommend">
+              <img src="assets/images/service-06.png" alt="" width="150" height="150" loading="lazy" />
+              <span class="service-card__title">맞춤형 추천</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container">
+
+      <!-- 상단 : 로고 + 검색 -->
+      <div class="footer__top">
+        <div class="footer__brand">
+          <!-- assets/images/logo-footer.png (200×50) -->
+          <img class="footer__logo" src="assets/images/logo-footer.png" alt="뱅크샐러드"
+               width="200" height="50" loading="lazy" />
+          <p class="footer__slogan">금융을 내 편으로, 뱅크샐러드가 함께합니다.</p>
+        </div>
+
+        <form class="footer__search" role="search" action="/search" method="get">
+          <label class="sr-only" for="footer-search-input">사이트 내 검색</label>
+          <div class="footer__search-field">
+            <!-- assets/icons/search.svg (24×24) -->
+            <img src="assets/icons/search.svg" alt="" width="24" height="24" />
+            <input id="footer-search-input" name="q" type="search" placeholder="검색어를 입력하세요" />
+          </div>
+          <button class="btn btn--search" type="submit">검색</button>
+        </form>
+      </div>
+
+      <hr class="footer__divider" />
+
+      <!-- 중단 : 사이트맵 -->
+      <div class="footer__middle">
+        <nav class="footer__col" aria-labelledby="footer-col-service">
+          <h2 class="footer__col-title" id="footer-col-service">서비스</h2>
+          <ul class="footer__links">
+            <li><a href="#loan-rate">신용대출 금리 비교</a></li>
+            <li><a href="#loan-top100">신용대출 TOP100</a></li>
+            <li><a href="#mortgage">주택담보대출</a></li>
+            <li><a href="#cashback">카드 캐시백</a></li>
+            <li><a href="#dna">유전자 검사</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__col" aria-labelledby="footer-col-company">
+          <h2 class="footer__col-title" id="footer-col-company">뱅크샐러드</h2>
+          <ul class="footer__links">
+            <li><a href="#about">회사소개</a></li>
+            <li><a href="#notice">공지사항</a></li>
+            <li><a href="#care-center">고객안심센터</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__col" aria-labelledby="footer-col-channel">
+          <h2 class="footer__col-title" id="footer-col-channel">채널</h2>
+          <ul class="footer__links">
+            <li><a href="#blog">블로그</a></li>
+            <li><a href="#instagram">인스타그램</a></li>
+            <li><a href="#youtube">유튜브</a></li>
+            <li><a href="#naver-blog">네이버 블로그</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__col" id="app-download">
+          <h2 class="footer__col-title">앱으로 더 편리하게 이용하세요</h2>
+          <div class="footer__app-links">
+            <!-- assets/images/badge-appstore.svg (120×40) -->
+            <a href="#appstore"><img src="assets/images/badge-appstore.svg"
+                 alt="App Store에서 다운로드" width="120" height="40" loading="lazy" /></a>
+            <!-- assets/images/badge-googleplay.svg (135×40) -->
+            <a href="#googleplay"><img src="assets/images/badge-googleplay.svg"
+                 alt="Google Play에서 다운로드" width="135" height="40" loading="lazy" /></a>
+          </div>
+
+          <h2 class="footer__col-title footer__col-title--sns">공식 채널</h2>
+          <ul class="footer__sns">
+            <!-- assets/icons/sns-*.svg (각 24×24) -->
+            <li><a href="#youtube" aria-label="유튜브"><img src="assets/icons/sns-youtube.svg" alt="" width="24" height="24" /></a></li>
+            <li><a href="#facebook" aria-label="페이스북"><img src="assets/icons/sns-facebook.svg" alt="" width="24" height="24" /></a></li>
+            <li><a href="#twitter" aria-label="트위터"><img src="assets/icons/sns-twitter.svg" alt="" width="24" height="24" /></a></li>
+            <li><a href="#instagram" aria-label="인스타그램"><img src="assets/icons/sns-instagram.svg" alt="" width="24" height="24" /></a></li>
+            <li><a href="#linkedin" aria-label="링크드인"><img src="assets/icons/sns-linkedin.svg" alt="" width="24" height="24" /></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer__divider" />
+
+      <!-- 하단 : 약관 / 사업자 정보 -->
+      <div class="footer__bottom">
+        <ul class="footer__policy">
+          <li><a href="#notice">공지사항</a></li>
+          <li><a href="#bs-money">뱅샐머니 이용안내</a></li>
+          <li><a href="#privacy"><strong>개인정보처리방침</strong></a></li>
+          <li><a href="#terms">이용약관</a></li>
+          <li><a href="#e-finance">전자금융거래 이용약관</a></li>
+          <li><a href="#support">고객센터</a></li>
+          <li><a href="#partnership">사업제휴</a></li>
+        </ul>
+
+        <address class="footer__company">
+          <span>(주)뱅크샐러드</span>
+          <span>대표: 김태훈</span>
+          <span>사업자등록번호: 105-87-73978</span>
+          <span>통신판매신고: 2023-서울마포-2465</span>
+          <span class="footer__company-row">주소: 서울특별시 마포구 마포대로 45, 일진빌딩 10층</span>
+          <span>E-mail: <a href="mailto:hello@banksalad.com">hello@banksalad.com</a></span>
+        </address>
+
+        <p class="footer__note">
+          뱅크샐러드는 국내 최대 1400여 개 금융상품을 비교하여 누구나 유리한 상품을 선택하도록 돕습니다.
+        </p>
+        <p class="footer__copyright">banksalad @ 2026. All rights reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
 </html>
