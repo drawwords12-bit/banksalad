@@ -298,7 +298,7 @@ address { font-style: normal; }
   flex: 1 0 0;
   min-width: 0;
 }
-.logo__symbol { width: 24px; height: 24px; }
+.logo__symbol { width: 200px; height: 24px; }
 .logo__wordmark { width: 153px; height: 26px; object-fit: contain; }
 
 /* --- GNB --- */
@@ -464,7 +464,7 @@ address { font-style: normal; }
 
 .app-card__thumb {
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  /* box-shadow: var(--shadow-card); */
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .app-card:hover .app-card__thumb {
@@ -999,7 +999,7 @@ address { font-style: normal; }
   .header__utils .icon-btn { display: none; } /* 아이콘 숨기고 CTA 우선 노출 */
   .btn--outline { display: none; }            /* 회원가입만 노출 */
 
-  .logo__wordmark { width: 120px; }
+  .logo__wordmark { width: 200px; }
 
   .service-grid { grid-template-columns: minmax(0, 1fr); }
   .dna-card { flex-basis: 78%; }
