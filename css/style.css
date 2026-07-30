@@ -755,7 +755,7 @@ address { font-style: normal; }
 
 /* 마우스를 올렸을 때 살짝 떠오르는 듯한 그림자 효과 */
 .feature:hover {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+  /* box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);  */
   z-index: 10; /* 다른 카드들보다 위로 올라오게 */
 }
 
