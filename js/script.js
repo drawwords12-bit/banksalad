@@ -190,3 +190,40 @@
     init();
   }
 })();
+
+// script.js
+
+// 1. 모든 카드(.feature) 요소를 가져옵니다.
+const featureCards = document.querySelectorAll('.feature');
+
+featureCards.forEach(card => {
+  // 카드 안의 '이미지'만 따로 선택합니다.
+  const iconImg = card.querySelector('.feature__icon img');
+
+  // 2. 카드 안에서 마우스가 움직일 때
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // 마우스 위치에 따라 X축, Y축으로 이동할 거리 계산 (자석 효과)
+    // 숫자가 커질수록 마우스를 더 많이 따라옵니다. (현재 최대 15px 이동)
+    const moveX = ((mouseX - centerX) / centerX) * 15; 
+    const moveY = ((mouseY - centerY) / centerY) * 15;  
+
+    // 회전(rotate) 없이 위치 이동(translate)과 크기 확대(scale)만 적용
+    iconImg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.08)`;
+    iconImg.style.transition = 'none'; // 마우스를 따라올 땐 즉각 반응
+  });
+
+  // 3. 마우스가 빠져나갔을 때 (원상복구)
+  card.addEventListener('mouseleave', () => {
+    // 원래 위치(0, 0)와 원래 크기(1)로 복구
+    iconImg.style.transform = `translate(0px, 0px) scale(1)`;
+    // 젤리처럼 쫀득하게 제자리로 돌아가는 애니메이션
+    iconImg.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'; 
+  });
+});
