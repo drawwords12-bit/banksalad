@@ -413,34 +413,34 @@
 })();
 
 /* =========================================================
-   Products Hero Scroll Transition
+   PRODUCTS HERO → CONTENT SCROLL TRANSITION
 
-   스크롤:
    1. Hero 고정
-   2. Hero가 1 → 1.2 확대
-   3. 검정 Fade
-   4. 다음 Experience 영역이 위로 덮임
+   2. Hero 비주얼 1 → 1.2 확대
+   3. 검정 Dim
+   4. 다음 콘텐츠가 아래에서 위로 Hero를 덮음
+
+   Desktop / Tablet / Mobile 동일 적용
 ========================================================= */
 
 (() => {
     const hero = document.querySelector('.products_hero');
-    const heroInner = document.querySelector('.products_hero_inner');
-    const heroStage = document.querySelector('.products_hero_stage');
-    const heroDim = document.querySelector('.products_hero_dim');
 
-    const nextSection = document.querySelector('.experience_filter');
+    const heroInner = hero?.querySelector('.products_hero_inner');
+    const heroStage = hero?.querySelector('.products_hero_stage');
+    const heroDim = hero?.querySelector('.products_hero_dim');
+
+    const contentLayer = document.querySelector('.products_content_layer');
 
     if (
         !hero ||
         !heroInner ||
         !heroStage ||
-        !nextSection
+        !contentLayer
     ) {
         return;
     }
 
-
-    /* GSAP / ScrollTrigger 확인 */
 
     if (
         typeof gsap === 'undefined' ||
@@ -455,6 +455,133 @@
 
 
     gsap.registerPlugin(ScrollTrigger);
+
+
+    const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+
+    /* -----------------------------------------------------
+       다음 콘텐츠 초기 위치
+
+       Hero 바로 아래에 있지만
+       화면 높이만큼 아래에서 시작
+    ----------------------------------------------------- */
+
+    gsap.set(contentLayer, {
+        yPercent: 100
+    });
+
+
+    /* -----------------------------------------------------
+       Scroll Timeline
+    ----------------------------------------------------- */
+
+    const tl = gsap.timeline({
+
+        scrollTrigger: {
+
+            trigger: hero,
+
+            start: 'top top',
+
+            /*
+             * Hero 고정 상태에서
+             * 약 1~2회 정도 스크롤하는 느낌
+             */
+            end: '+=180%',
+
+            scrub: 1,
+
+            pin: true,
+
+            pinSpacing: true,
+
+            anticipatePin: 1,
+
+            invalidateOnRefresh: true
+        }
+
+    });
+
+
+    /* =====================================================
+       1. Hero 확대
+
+       처음 약 60% 동안 1 → 1.2
+    ===================================================== */
+
+    tl.to(
+        [heroInner, heroStage],
+        {
+            scale: 1.2,
+
+            ease: 'none',
+
+            duration: 0.62
+        },
+        0
+    );
+
+
+    /* =====================================================
+       2. 검정 Fade
+
+       확대 중후반부터 살짝 어두워짐
+    ===================================================== */
+
+    if (heroDim) {
+
+        tl.to(
+            heroDim,
+            {
+                opacity: 0.35,
+
+                ease: 'none',
+
+                duration: 0.25
+            },
+            0.48
+        );
+
+    }
+
+
+    /* =====================================================
+       3. 다음 Product 콘텐츠가 위로 덮기
+
+       아래 100% → 화면 제자리
+    ===================================================== */
+
+    tl.to(
+        contentLayer,
+        {
+            yPercent: 0,
+
+            ease: 'none',
+
+            duration: 0.48
+        },
+        0.52
+    );
+
+
+    /* 이미지 로딩 후 ScrollTrigger 위치 보정 */
+
+    window.addEventListener(
+        'load',
+        () => {
+            ScrollTrigger.refresh();
+        },
+        {
+            once: true
+        }
+    );
+
+
 
 
     /* =====================================================

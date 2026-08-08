@@ -53,26 +53,33 @@
   display: grid;
   place-items: start center;
 
-  /* 시안 1920 x 1190 */
-  min-height: min(100svh, 62vw);
+  /* 웹 / 태블릿 / 모바일 모두 viewport 100% */
+  height: 100svh;
+  min-height: 100svh;
 
   padding-block: clamp(7rem, 11vw, 11.5rem) 0;
 
   overflow: hidden;
   isolation: isolate;
 
+  z-index: 1;
+
   /* ScrollTrigger 확대 기준 */
   transform-origin: center center;
 
   background:
-    radial-gradient(ellipse 58% 46% at 50% 66%,
+    radial-gradient(
+      ellipse 58% 46% at 50% 66%,
       rgba(214, 196, 182, 0.75) 0%,
-      rgba(214, 196, 182, 0) 72%),
-    linear-gradient(180deg,
+      rgba(214, 196, 182, 0) 72%
+    ),
+    linear-gradient(
+      180deg,
       #FFFFFF 0%,
       #FBF9F8 26%,
       #EDE5E0 66%,
-      #D8CCC4 100%);
+      #D8CCC4 100%
+    );
 }
 
 
@@ -261,6 +268,22 @@
   pointer-events: none;
 
   will-change: opacity;
+}
+
+
+/* 다음 콘텐츠가 Hero를 덮어 올라오도록 */
+.products_content_layer {
+  position: relative;
+  z-index: 30;
+
+  background: var(--makgeolli_light4);
+
+  border-radius: 2rem 2rem 0 0;
+
+  box-shadow:
+    0 -2rem 4rem rgba(0, 0, 0, 0.08);
+
+  will-change: transform;
 }
 
 
@@ -899,7 +922,8 @@
   }
 
   .products_hero {
-    min-height: 74.375rem;
+    height: 100svh;
+min-height: 100svh;
   }
 }
 
@@ -938,10 +962,16 @@
 }
 
 @media (max-width: 48rem) {
+  @media (max-width: 48rem) {
   .products_hero {
-    min-height: min(100svh, 128vw);
+    height: 100svh;
+    min-height: 100svh;
+
     padding-block: clamp(6rem, 22vw, 9rem) 0;
   }
+
+  /* 기존 모바일 병 위치는 그대로 */
+}
 
   .hero_bottle_rice {
     left: 6%;
@@ -1036,4 +1066,54 @@
   .keyword_track {
     transform: none;
   }
+}
+
+/* =========================================================
+   Hero → Product Content Transition
+========================================================= */
+
+.products_hero_inner,
+.products_hero_stage {
+  transform-origin: center center;
+  will-change: transform;
+}
+
+
+/* 검정 Fade */
+
+.products_hero_dim {
+  position: absolute;
+  inset: 0;
+
+  z-index: 20;
+
+  background: #000;
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change: opacity;
+}
+
+
+/* 다음 콘텐츠 전체가 Hero를 덮도록 */
+
+.products_content_layer {
+  position: relative;
+
+  z-index: 30;
+
+  background: var(--makgeolli_light4);
+
+  will-change: transform;
+}
+
+
+/* 덮어질 때 위쪽이 화면처럼 깔끔하게 보이도록 */
+
+.experience_filter {
+  position: relative;
+  min-height: 100svh;
+
+  background: var(--makgeolli_light4);
 }
