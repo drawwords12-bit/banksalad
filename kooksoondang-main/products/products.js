@@ -179,3 +179,501 @@
     topButton.addEventListener('click', handleTopClick);
     updateTopButton();
 })();
+
+/* =========================================================
+   Products Hero Intro Animation
+   1. 제목 등장
+   2. 주변 막걸리 병 등장
+   3. Splash 등장
+   4. 중앙 백세주 등장
+========================================================= */
+
+(() => {
+    const hero = document.querySelector('.products_hero');
+
+    if (!hero) return;
+
+    if (typeof gsap === 'undefined') {
+        console.warn('[products hero] GSAP이 로드되지 않았습니다.');
+        return;
+    }
+
+    const titleLines = hero.querySelectorAll('.products_hero_title span');
+
+    const rice = hero.querySelector('.hero_bottle_rice');
+    const draft = hero.querySelector('.hero_bottle_draft');
+    const prebiotics = hero.querySelector('.hero_bottle_prebiotics');
+    const strawberry = hero.querySelector('.hero_bottle_strawberry');
+
+    const splash = hero.querySelector('.hero_splash');
+    const center = hero.querySelector('.hero_bottle_center');
+
+    const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+
+    /* =====================================================
+       모션 감소 설정
+    ===================================================== */
+
+    if (prefersReducedMotion) {
+        gsap.set(
+            [
+                ...titleLines,
+                rice,
+                draft,
+                prebiotics,
+                strawberry,
+                splash,
+                center
+            ].filter(Boolean),
+            {
+                opacity: 1
+            }
+        );
+
+        return;
+    }
+
+
+    /* =====================================================
+       Hero 등장 Timeline
+    ===================================================== */
+
+    const introTl = gsap.timeline({
+        defaults: {
+            ease: 'power3.out'
+        }
+    });
+
+
+    /* 1. 제목 */
+
+    if (titleLines.length) {
+        introTl.fromTo(
+            titleLines,
+            {
+                y: -55,
+                opacity: 0
+            },
+            {
+                y: 0,
+                opacity: 1,
+
+                duration: 0.9,
+
+                stagger: 0.12
+            }
+        );
+    }
+
+
+    /* 2. Rice - 왼쪽 밖에서 */
+
+    if (rice) {
+        introTl.fromTo(
+            rice,
+            {
+                x: -320,
+                y: -80,
+                opacity: 0
+            },
+            {
+                x: 0,
+                y: 0,
+                opacity: 1,
+
+                duration: 1.05
+            },
+
+            '-=0.2'
+        );
+    }
+
+
+    /* 3. Prebiotics - 오른쪽 위 */
+
+    if (prebiotics) {
+        introTl.fromTo(
+            prebiotics,
+            {
+                x: 300,
+                y: -130,
+                opacity: 0
+            },
+            {
+                x: 0,
+                y: 0,
+                opacity: 1,
+
+                duration: 1.05
+            },
+
+            '-=0.82'
+        );
+    }
+
+
+    /* 4. Draft - 왼쪽 아래 */
+
+    if (draft) {
+        introTl.fromTo(
+            draft,
+            {
+                x: -270,
+                y: 230,
+                opacity: 0
+            },
+            {
+                x: 0,
+                y: 0,
+                opacity: 1,
+
+                duration: 1.05
+            },
+
+            '-=0.78'
+        );
+    }
+
+
+    /* 5. Strawberry - 오른쪽 아래 */
+
+    if (strawberry) {
+        introTl.fromTo(
+            strawberry,
+            {
+                x: 270,
+                y: 230,
+                opacity: 0
+            },
+            {
+                x: 0,
+                y: 0,
+                opacity: 1,
+
+                duration: 1.05
+            },
+
+            '-=0.78'
+        );
+    }
+
+
+    /* =====================================================
+       6. Splash
+    ===================================================== */
+
+    if (splash) {
+        introTl.fromTo(
+            splash,
+            {
+                scale: 0.25,
+                opacity: 0
+            },
+            {
+                scale: 1,
+                opacity: 1,
+
+                duration: 0.8,
+
+                ease: 'back.out(1.7)'
+            },
+
+            '-=0.3'
+        );
+    }
+
+
+    /* =====================================================
+       7. 가운데 백세주
+    ===================================================== */
+
+    if (center) {
+        introTl.fromTo(
+            center,
+            {
+                y: 280,
+                opacity: 0
+            },
+            {
+                y: 0,
+                opacity: 1,
+
+                duration: 1.15,
+
+                ease: 'back.out(1.25)'
+            },
+
+            '-=0.5'
+        );
+    }
+
+})();
+
+/* =========================================================
+   Products Hero Scroll Transition
+
+   스크롤:
+   1. Hero 고정
+   2. Hero가 1 → 1.2 확대
+   3. 검정 Fade
+   4. 다음 Experience 영역이 위로 덮임
+========================================================= */
+
+(() => {
+    const hero = document.querySelector('.products_hero');
+    const heroInner = document.querySelector('.products_hero_inner');
+    const heroStage = document.querySelector('.products_hero_stage');
+    const heroDim = document.querySelector('.products_hero_dim');
+
+    const nextSection = document.querySelector('.experience_filter');
+
+    if (
+        !hero ||
+        !heroInner ||
+        !heroStage ||
+        !nextSection
+    ) {
+        return;
+    }
+
+
+    /* GSAP / ScrollTrigger 확인 */
+
+    if (
+        typeof gsap === 'undefined' ||
+        typeof ScrollTrigger === 'undefined'
+    ) {
+        console.warn(
+            '[products scroll] GSAP 또는 ScrollTrigger가 로드되지 않았습니다.'
+        );
+
+        return;
+    }
+
+
+    gsap.registerPlugin(ScrollTrigger);
+
+
+    /* =====================================================
+       모션 감소 설정
+    ===================================================== */
+
+    const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+
+    /* =====================================================
+       다음 섹션 초기 위치
+
+       처음부터 완전히 100% 밑으로 보내면
+       현재 페이지 레이아웃에서 간격이 너무 커질 수 있어서
+       18%만 아래로 둠
+    ===================================================== */
+
+    gsap.set(nextSection, {
+        yPercent: 18
+    });
+
+
+    /* =====================================================
+       ScrollTrigger Timeline
+    ===================================================== */
+
+    const scrollTl = gsap.timeline({
+
+        scrollTrigger: {
+
+            trigger: hero,
+
+            /* Hero가 상단에 도달 */
+            start: 'top top',
+
+            /*
+             * 스크롤 약 두 화면
+             *
+             * 150% = 빠름
+             * 200% = 추천
+             * 250% = 느림
+             */
+            end: '+=200%',
+
+            /* 스크롤과 애니메이션 연결 */
+            scrub: 1,
+
+            /* Hero 화면 고정 */
+            pin: true,
+
+            pinSpacing: true,
+
+            anticipatePin: 1,
+
+            invalidateOnRefresh: true
+        }
+
+    });
+
+
+    /* =====================================================
+       1. Hero 확대
+
+       Hero 자체에 scale을 거는 것이 아니라
+       안쪽 두 레이어를 확대함.
+    ===================================================== */
+
+    scrollTl.to(
+        [heroInner, heroStage],
+        {
+            scale: 1.2,
+
+            ease: 'none',
+
+            duration: 1
+        },
+
+        0
+    );
+
+
+    /* =====================================================
+       2. 검정 Fade
+
+       전체 스크롤의 약 60% 지점부터 시작
+    ===================================================== */
+
+    if (heroDim) {
+
+        scrollTl.to(
+            heroDim,
+            {
+                opacity: 0.38,
+
+                ease: 'none',
+
+                duration: 0.35
+            },
+
+            0.6
+        );
+
+    }
+
+
+    /* =====================================================
+       3. 다음 섹션이 위로 올라오기
+
+       확대가 거의 끝날 때 시작
+    ===================================================== */
+
+    scrollTl.to(
+        nextSection,
+        {
+            yPercent: 0,
+
+            ease: 'none',
+
+            duration: 0.4
+        },
+
+        0.68
+    );
+
+
+    /* =====================================================
+       이미지 로딩 후 위치 재계산
+    ===================================================== */
+
+    window.addEventListener(
+        'load',
+        () => {
+            ScrollTrigger.refresh();
+        },
+        {
+            once: true
+        }
+    );
+
+})();
+
+/* =====================================================
+   등장 완료 후 Floating Animation
+===================================================== */
+
+tl.call(() => {
+
+    /* Rice */
+    if (rice) {
+        gsap.to(rice, {
+            y: 10,
+            rotation: -45,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    /* 1000 */
+    if (prebiotics) {
+        gsap.to(prebiotics, {
+            y: 12,
+            rotation: 10,
+            duration: 3.4,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    /* Draft */
+    if (draft) {
+        gsap.to(draft, {
+            y: -10,
+            rotation: 13,
+            duration: 3.6,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    /* Strawberry */
+    if (strawberry) {
+        gsap.to(strawberry, {
+            y: -12,
+            rotation: -14,
+            duration: 3.2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    /* 중앙 백세주 */
+    if (center) {
+        gsap.to(center, {
+            y: -10,
+            duration: 2.8,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    /* Splash도 아주 살짝 움직임 */
+    if (splash) {
+        gsap.to(splash, {
+            scale: 1.03,
+            duration: 2.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+});

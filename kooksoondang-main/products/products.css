@@ -20,7 +20,8 @@
 }
 
 .products_container {
-  width: min(100% - (var(--products_gutter) * 2), var(--products_max));
+  width: min(calc(100% - (var(--products_gutter) * 2)),
+      var(--products_max));
   margin-inline: auto;
 }
 
@@ -51,83 +52,240 @@
   position: relative;
   display: grid;
   place-items: start center;
+
   /* 시안 1920 x 1190 */
   min-height: min(100svh, 62vw);
+
   padding-block: clamp(7rem, 11vw, 11.5rem) 0;
+
   overflow: hidden;
   isolation: isolate;
+
+  /* ScrollTrigger 확대 기준 */
+  transform-origin: center center;
+
   background:
-    radial-gradient(ellipse 58% 46% at 50% 66%, rgba(214, 196, 182, 0.75) 0%, rgba(214, 196, 182, 0) 72%),
-    linear-gradient(180deg, #FFFFFF 0%, #FBF9F8 26%, #EDE5E0 66%, #D8CCC4 100%);
+    radial-gradient(ellipse 58% 46% at 50% 66%,
+      rgba(214, 196, 182, 0.75) 0%,
+      rgba(214, 196, 182, 0) 72%),
+    linear-gradient(180deg,
+      #FFFFFF 0%,
+      #FBF9F8 26%,
+      #EDE5E0 66%,
+      #D8CCC4 100%);
 }
+
 
 .products_hero_inner {
   position: relative;
   z-index: 2;
-  width: min(100% - (var(--products_gutter) * 2), var(--products_max));
+
+  width: min(calc(100% - (var(--products_gutter) * 2)),
+      var(--products_max));
+
   text-align: center;
+
+  /* 스크롤 확대 최적화 */
+  transform-origin: center center;
+  will-change: transform;
 }
+
 
 .products_hero_title {
   font: var(--PC-Banner_96B);
   font-size: clamp(2.25rem, 5.1vw, 6rem);
+
   letter-spacing: var(--PC-Banner_96B-letter-spacing);
+
   color: var(--bekseju_darker_cold);
+
   text-wrap: balance;
 }
+
 
 .products_hero_title span {
   display: block;
 }
 
-/* 병 배치 – 시안의 상대 위치를 % 로 옮김 */
+
+/* =========================================================
+   Hero Stage
+========================================================= */
+
 .products_hero_stage {
   position: absolute;
   inset: 0;
+
   z-index: 1;
+
   pointer-events: none;
+
+  /* 스크롤 확대 */
+  transform-origin: center center;
+  will-change: transform;
 }
+
+
+/* =========================================================
+   Splash
+   백세주 뒤쪽
+========================================================= */
+
+.hero_splash {
+  position: absolute;
+
+  left: 50%;
+  top: 70%;
+
+  width: clamp(26rem, 45vw, 54rem);
+  height: auto;
+
+  z-index: 1;
+
+  transform:
+    translate(-50%, -50%) scale(1);
+
+  transform-origin: center center;
+
+  opacity: 1;
+
+  pointer-events: none;
+
+  will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   Bottles
+========================================================= */
 
 .hero_bottle {
   position: absolute;
+
   width: auto;
+
+  z-index: 2;
+
   transform-origin: center;
-  filter: drop-shadow(0 1.25rem 1.875rem rgba(76, 59, 51, 0.18));
+
+  filter:
+    drop-shadow(0 1.25rem 1.875rem rgba(76, 59, 51, 0.18));
+
+  will-change: transform, opacity;
 }
+
+
+/* 중앙 백세주 */
 
 .hero_bottle_center {
   left: 50%;
   top: 71%;
+
   height: 58%;
-  transform: translate(-50%, -50%);
+
+  z-index: 3;
+
+  transform:
+    translate(-50%, -50%);
 }
+
+
+/* 왼쪽 위 Rice */
 
 .hero_bottle_rice {
   left: 8.8%;
   top: 42%;
+
   height: 39%;
-  transform: translate(-50%, -50%) rotate(38deg);
+
+  transform:
+    translate(-50%, -50%) rotate(38deg);
 }
+
+
+/* 왼쪽 아래 Draft */
 
 .hero_bottle_draft {
   left: 9.2%;
   top: 80%;
+
   height: 44%;
-  transform: translate(-50%, -50%) rotate(27deg);
+
+  transform:
+    translate(-50%, -50%) rotate(27deg);
 }
+
+
+/* 오른쪽 위 1000 */
 
 .hero_bottle_prebiotics {
   left: 87.4%;
   top: 33%;
+
   height: 33%;
-  transform: translate(-50%, -50%) rotate(17deg);
+
+  transform:
+    translate(-50%, -50%) rotate(17deg);
 }
+
+
+/* 오른쪽 아래 Strawberry */
 
 .hero_bottle_strawberry {
   left: 92.6%;
   top: 81%;
+
   height: 40%;
-  transform: translate(-50%, -50%) rotate(-33deg);
+
+  transform:
+    translate(-50%, -50%) rotate(-33deg);
+}
+
+
+/* =========================================================
+   Scroll Fade Overlay
+
+   JS에서 opacity 0 → 0.38
+========================================================= */
+
+.products_hero_dim {
+  position: absolute;
+  inset: 0;
+
+  z-index: 20;
+
+  background: #000;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change: opacity;
+}
+
+
+/* =========================================================
+   Hero 다음 섹션
+
+   Hero 위로 덮여 올라오는 느낌을 위해
+   z-index를 Hero보다 높게
+========================================================= */
+
+.experience_filter {
+  position: relative;
+
+  z-index: 30;
+
+  background: var(--makgeolli_light4);
+}
+
+
+.product_showcase {
+  position: relative;
+
+  z-index: 30;
+
+  background: var(--makgeolli_light4);
 }
 
 /* ---------- Taste / Experience Filter ---------- */
@@ -314,7 +472,7 @@
   display: none;
 }
 
-.product_card > article {
+.product_card>article {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -324,8 +482,8 @@
   transition: transform 260ms ease, box-shadow 260ms ease;
 }
 
-.product_card > article:hover,
-.product_card > article:focus-visible {
+.product_card>article:hover,
+.product_card>article:focus-visible {
   transform: translateY(-0.5rem);
   box-shadow: 0 1rem 2rem rgba(76, 59, 51, 0.14);
 }
@@ -349,8 +507,8 @@
   transition: transform 320ms ease;
 }
 
-.product_card > article:hover .product_tone,
-.product_card > article:focus-visible .product_tone {
+.product_card>article:hover .product_tone,
+.product_card>article:focus-visible .product_tone {
   transform: translate(-50%, -50%) scale(1.06);
 }
 
@@ -376,8 +534,8 @@
   transition: transform 320ms ease;
 }
 
-.product_card > article:hover .product_bottle,
-.product_card > article:focus-visible .product_bottle {
+.product_card>article:hover .product_bottle,
+.product_card>article:focus-visible .product_bottle {
   transform: translate(-50%, calc(-50% - 0.375rem));
 }
 
@@ -639,7 +797,7 @@
   overflow: hidden;
 }
 
-.keyword_row + .keyword_row {
+.keyword_row+.keyword_row {
   margin-top: clamp(0.5rem, 1.1vw, 1.25rem);
 }
 
@@ -819,7 +977,7 @@
     gap: 1.5rem 1rem;
   }
 
-  .product_card > article {
+  .product_card>article {
     padding-inline: 0.75rem;
   }
 

@@ -39,10 +39,21 @@
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
   <link rel="stylesheet" href="products.css">
+  <!-- Lenis -->
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+
+  <!-- GSAP ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+
+  <!-- Common -->
   <script src="../common/page_transition.js" defer></script>
   <script src="../common/common.js" defer></script>
-  <script src="products.js" defer></script>
+
+  <!-- Products -->
+  <script src="./products.js" defer></script>
 </head>
 
 <body>
@@ -82,19 +93,33 @@
 
     <!-- ---------- Products Hero ---------- -->
     <section class="products_hero" id="products_hero" aria-labelledby="products_hero_title">
+
       <div class="products_hero_inner">
         <h1 class="products_hero_title" id="products_hero_title">
           <span>KOREAN TRADITIONAL</span>
           <span>HERBAL RICE WINE</span>
         </h1>
       </div>
+
       <div class="products_hero_stage" aria-hidden="true">
+
+        <img class="hero_splash" src="./products_asset/img/splash.png" alt="">
+
+        <img class="hero_bottle hero_bottle_rice" src="./products_asset/img/rice_makgeolli.png" alt="">
+
+        <img class="hero_bottle hero_bottle_draft" src="./products_asset/img/draft_makgeolli.png" alt="">
+
+        <img class="hero_bottle hero_bottle_prebiotics" src="./products_asset/img/1000_makgeolli.png" alt="">
+
+        <img class="hero_bottle hero_bottle_strawberry" src="./products_asset/img/strawberry_makgeolli.png" alt="">
+
         <img class="hero_bottle hero_bottle_center" src="../asset/img/bekseju_bottle.png" alt="">
-        <img class="hero_bottle hero_bottle_rice" src="products_asset/img/rice_makgeolli.png" alt="">
-        <img class="hero_bottle hero_bottle_draft" src="products_asset/img/draft_makgeolli.png" alt="">
-        <img class="hero_bottle hero_bottle_prebiotics" src="products_asset/img/1000_makgeolli.png" alt="">
-        <img class="hero_bottle hero_bottle_strawberry" src="products_asset/img/strawberry_makgeolli.png" alt="">
+
       </div>
+
+      <!-- 스크롤 전환 시 검정 Fade -->
+      <div class="products_hero_dim" aria-hidden="true"></div>
+
     </section>
 
     <!-- ---------- Taste / Experience Filter ---------- -->
@@ -104,18 +129,22 @@
 
         <form class="craving_search" role="search" data-craving-search>
           <label class="a11y_hidden" for="craving_search_input">Search products</label>
-          <input class="craving_search_input" id="craving_search_input" type="search" placeholder="What about &ldquo;Makgeolli&rdquo;?"
-            autocomplete="off" data-craving-input>
+          <input class="craving_search_input" id="craving_search_input" type="search"
+            placeholder="What about &ldquo;Makgeolli&rdquo;?" autocomplete="off" data-craving-input>
           <button class="craving_search_button" type="submit" aria-label="Search products">
             <span class="craving_search_icon" aria-hidden="true"></span>
           </button>
         </form>
 
         <ul class="experience_tags" data-experience-tags>
-          <li><button class="experience_tag" type="button" aria-pressed="false" data-experience="vegan">#Vegan</button></li>
-          <li><button class="experience_tag" type="button" aria-pressed="false" data-experience="beginner">#Beginner</button></li>
-          <li><button class="experience_tag" type="button" aria-pressed="false" data-experience="intermediate">#Intermediate</button></li>
-          <li><button class="experience_tag" type="button" aria-pressed="false" data-experience="advanced">#Advanced</button></li>
+          <li><button class="experience_tag" type="button" aria-pressed="false" data-experience="vegan">#Vegan</button>
+          </li>
+          <li><button class="experience_tag" type="button" aria-pressed="false"
+              data-experience="beginner">#Beginner</button></li>
+          <li><button class="experience_tag" type="button" aria-pressed="false"
+              data-experience="intermediate">#Intermediate</button></li>
+          <li><button class="experience_tag" type="button" aria-pressed="false"
+              data-experience="advanced">#Advanced</button></li>
         </ul>
       </div>
     </section>
