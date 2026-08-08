@@ -27,12 +27,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>뱅크샐러드</title>
   <meta name="description" content="자산 조회부터 건강 분석까지, 뱅크샐러드 하나로 시작하세요." />
-  
+
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32.png" />
 
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  
+
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -92,7 +92,10 @@
          배경 이미지 → assets/images/hero-bg.jpg (권장 1920×1200)
          ==================================================================== -->
     <section class="hero" aria-labelledby="hero-title">
+      <video class="hero__video" src="assets/video1.mp4" autoplay loop muted playsinline></video>
+
       <div class="hero__dim" aria-hidden="true"></div>
+
       <div class="hero__copy">
         <h1 class="hero__title" id="hero-title">내 모든 자산과 건강을 한눈에</h1>
         <p class="hero__desc">자산 조회부터 건강 분석까지, 뱅크샐러드 하나로 시작하세요.</p>
@@ -209,11 +212,13 @@
           <img class="mydata__img mydata__img--main" src="assets/images/data1.svg" alt="" width="940" height="627"
             loading="lazy" />
           <!-- assets/images/mydata-badge-01.png (180×196) -->
-          <img class="mydata__img mydata__img--badge-a" src="assets/images/data3.svg" alt="" width="180"
-            height="196" loading="lazy" />
+          <img class="mydata__img mydata__img--badge-a" src="assets/images/data3.svg" alt="" width="180" height="196"
+            loading="lazy" />
           <!-- assets/images/mydata-badge-02.png (180×202) -->
-          <img class="mydata__img mydata__img--badge-b" src="assets/images/data2.svg" alt="" width="180"
-            height="202" loading="lazy" />
+          <img class="mydata__img mydata__img--badge-b" src="assets/images/data2.svg" alt="" width="180" height="202"
+            loading="lazy" />
+          <img class="mydata__img mydata__img--badge-c" src="assets/images/data4.svg" alt="" width="180" height="202"
+            loading="lazy" />
         </div>
 
       </div>
@@ -360,8 +365,7 @@
       <div class="footer__top">
         <div class="footer__brand">
           <!-- assets/images/logo2.svg (200×50) -->
-          <img class="footer__logo" src="assets/images/logo2.svg" alt="뱅크샐러드" width="200" height="50"
-            loading="lazy" />
+          <img class="footer__logo" src="assets/images/logo2.svg" alt="뱅크샐러드" width="200" height="50" loading="lazy" />
           <p class="footer__slogan">금융을 내 편으로, 뱅크샐러드가 함께합니다.</p>
         </div>
 
@@ -414,8 +418,8 @@
           <h2 class="footer__col-title">앱으로 더 편리하게 이용하세요</h2>
           <div class="footer__app-links">
             <!-- assets/images/applestore.svg (120×40) -->
-            <a href="#appstore"><img src="assets/images/applestore.svg" alt="App Store에서 다운로드" width="120"
-                height="40" loading="lazy" /></a>
+            <a href="#appstore"><img src="assets/images/applestore.svg" alt="App Store에서 다운로드" width="120" height="40"
+                loading="lazy" /></a>
             <!-- assets/images/badge-googleplay.svg (135×40) -->
             <a href="#googleplay"><img src="assets/images/googleplay.svg" alt="Google Play에서 다운로드" width="135"
                 height="40" loading="lazy" /></a>
@@ -432,8 +436,8 @@
                   height="24" /></a></li>
             <li><a href="#instagram" aria-label="인스타그램"><img src="assets/images/instagram.svg" alt="" width="24"
                   height="24" /></a></li>
-            <li><a href="#linkedin" aria-label="링크드인"><img src="assets/images/li" alt="" width="24"
-                  height="24" /></a></li>
+            <li><a href="#linkedin" aria-label="링크드인"><img src="assets/images/li" alt="" width="24" height="24" /></a>
+            </li>
           </ul>
         </div>
       </div>
@@ -470,7 +474,7 @@
     </div>
   </footer>
 
-  <script src="./js/script.js" defer></script>
+  <script src="js/script.js" defer></script>
 </body>
 
 </html>

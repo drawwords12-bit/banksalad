@@ -340,7 +340,7 @@ address { font-style: normal; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px; height: 24px;
+  width: 48px; height: 48px;
   transition: opacity .2s var(--ease);
 }
 .icon-btn:hover { opacity: .6; }
@@ -377,6 +377,16 @@ address { font-style: normal; }
   min-height: clamp(480px, 62.5vw, 1200px);
   background: #1a2b3c url("assets/images/hero-bg.jpg") center / cover no-repeat;
   overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 영상이 찌그러지지 않고 영역을 가득 채우게 설정 */
+  z-index: 0; /* 배경으로 깔아주기 */
 }
 
 /* 원본 딤 : 검정 30% */
@@ -560,6 +570,50 @@ address { font-style: normal; }
   left: 10%; bottom: 0;
   width: 17.6%;
 }
+/* 기존 코드 아래에 이 코드를 추가해 주세요 */
+.mydata__img--badge-c {
+  right: 0%;    /* 또는 left 값으로 조절 */
+  bottom: 0%;  /* 원하는 위치에 맞춰 조절 */
+  width: 17.6%; /* 크기 설정 */
+}
+
+/* 1. 두둥실 움직이는 애니메이션 정의 */
+@keyframes float_1 {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px); /* 위로 12픽셀 둥실 떠오름 */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes float_2 {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px); /* 속도와 높낮이를 다르게 주어 자연스럽게 연출 */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 2. 각 뱃지 이미지에 애니메이션 연결하기 */
+.mydata__img--badge-a {
+  animation: float_1 3s ease-in-out infinite; /* 3초 동안 무한 반복 */
+}
+
+.mydata__img--badge-b {
+  animation: float_2 4s ease-in-out infinite; /* 4초 동안 무한 반복 (속도 다르게) */
+}
+
+.mydata__img--badge-c {
+  animation: float_1 3.5s ease-in-out infinite; /* 3.5초 동안 무한 반복 */
+}
 
 
 /* ==========================================================================
@@ -638,7 +692,7 @@ address { font-style: normal; }
 
 
 /* ==========================================================================
-   11. Features
+   11. Features (네모 박스 제거 & 아이콘 전용 3D 수정 버전)
    ========================================================================== */
 .features { padding-block: 138px; }
 
@@ -648,14 +702,32 @@ address { font-style: normal; }
   gap: 90px;
 }
 
-.feature { text-align: center; }
+.feature { 
+  text-align: center; 
+  /* 카드 박스 효과(box-shadow, perspective)를 지워 텍스트 영역을 깔끔하게 고정합니다 */
+}
 
+/* style.css */
+
+/* 아이콘 영역: 3D 효과(perspective) 싹 지우기 */
 .feature__icon {
   width: min(300px, 100%);
   margin-inline: auto;
-  transition: transform .35s var(--ease);
+  cursor: pointer;
 }
-.feature:hover .feature__icon { transform: translateY(-8px) scale(1.03); }
+
+/* 아이콘 이미지 자체 스타일 */
+.feature__icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* 부드러운 복귀를 위한 기본 트랜지션 (js에서 제어합니다) */
+}
+
+/* 그림자는 기존처럼 이미지 형태 그대로 유지 */
+.feature__icon:hover img {
+  filter: drop-shadow(0px 12px 20px rgba(0, 0, 0, 0.15));
+}
 
 .feature__title {
   margin-top: 50px;
@@ -669,6 +741,30 @@ address { font-style: normal; }
   font-size: 1.125rem;
   line-height: 1.5;
   color: var(--c-gray-900);
+}
+
+/* style.css */
+
+/* 카드 자체에 3D 원근감 설정 */
+.feature {
+  /* 기존 스타일은 그대로 두시고 아래 속성들을 추가하세요 */
+  perspective: 1000px;         /* 3D 공간의 깊이감 (원근감) */
+  transform-style: preserve-3d; /* 자식 요소도 3D 공간을 공유하도록 설정 */
+  will-change: transform;       /* 브라우저에 애니메이션을 미리 알려줘서 부드럽게 처리 */
+}
+
+/* 마우스를 올렸을 때 살짝 떠오르는 듯한 그림자 효과 */
+.feature:hover {
+  /* box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);  */
+  z-index: 10; /* 다른 카드들보다 위로 올라오게 */
+}
+
+/* 💡 핵심 디테일: 아이콘과 텍스트가 카드 위로 튀어나와 보이게 만듭니다 */
+.feature__icon, 
+.feature__title, 
+.feature__desc {
+  /* Z축(사용자 방향)으로 30px 띄워줍니다 */
+  transform: translateZ(30px); 
 }
 
 

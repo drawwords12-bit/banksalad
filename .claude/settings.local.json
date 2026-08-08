@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcp-registry__search_mcp_registry",
+      "WebSearch",
+      "WebFetch(domain:help.figma.com)",
+      "mcp__Figma__get_metadata"
+    ]
+  }
+}

@@ -1,0 +1,1009 @@
+@charset "utf-8";
+
+/* ==========================================================================
+   뱅크샐러드 랜딩 페이지 스타일
+   Figma: 김지현_뱅크샐러드 / node 613-648 "main_page" (1920px 기준)
+
+   목차
+     01. 디자인 토큰 (변수)
+     02. 리셋 & 베이스
+     03. 공통 레이아웃 유틸
+     04. 버튼 컴포넌트
+     05. Header / GNB
+     06. Hero
+     07. Stats
+     08. Account Book
+     09. Mydata
+     10. DNA Test
+     11. Features
+     12. Services
+     13. Footer
+     14. 모션 (스크롤 리빌)
+     15. 반응형 (1600 / 1280 / 1024 / 768 / 480)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01. 디자인 토큰
+   ========================================================================== */
+:root {
+  /* ---- Color : Brand -------------------------------------------------- */
+  --c-mint:         #00cdba; /* 주요 CTA 버튼 */
+  --c-teal:         #00bba7; /* 마이데이터 섹션 배경 */
+  --c-teal-40:      #14b8a6; /* 지표 숫자 */
+  --c-mint-light:   #b9f8cf; /* 마이데이터 본문 */
+  --c-green:        #49c295; /* 회원가입 버튼 */
+  --c-forest:       #1a4d3b; /* 로그인 버튼 보더 */
+  --c-ink:          #0a261d; /* 헤더 텍스트 */
+
+  /* ---- Color : Neutral ------------------------------------------------ */
+  --c-gray-900:     #212529;
+  --c-gray-700:     #4a5565; /* 앱 카드 타이틀 */
+  --c-gray-600:     #666666;
+  --c-gray-400:     #999999;
+  --c-gray-100:     #f8f9fa;
+  --c-cool-10:      #f2f4f8;
+  --c-cool-30:      #c1c7cd;
+  --c-cool-60:      #697077; /* 푸터 배경 */
+  --c-white:        #ffffff;
+
+  /* ---- Color : Dark --------------------------------------------------- */
+  --c-navy:         #132f4c; /* 서비스 그리드 배경 */
+  --c-navy-deep:    #0a1929; /* 유전자 검사 섹션 배경 (원본 다크 톤) */
+  --c-ink-900:      #101828; /* 마이데이터 버튼 */
+  --c-blue:         #0f62fe; /* 푸터 검색 버튼 */
+
+  /* ---- Typography ----------------------------------------------------- */
+  --font-base: "Pretendard Variable", Pretendard, -apple-system,
+               BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+               "맑은 고딕", sans-serif;
+
+  /* 뷰포트에 따라 유동적으로 줄어드는 타입 스케일 (min / 유동 / max) */
+  --fz-hero:        clamp(2.25rem, 3.75vw, 4.5rem);   /* 72px */
+  --fz-hero-desc:   clamp(1rem,   1.46vw, 1.75rem);   /* 28px */
+  --fz-display:     clamp(2rem,   3.39vw, 4.0625rem); /* 65px */
+  --fz-h2:          clamp(1.5rem, 2.5vw,  3rem);      /* 48px */
+  --fz-h3:          clamp(1.375rem, 2.08vw, 2.5rem);  /* 40px */
+  --fz-stat:        clamp(2rem,   2.92vw, 3.5rem);    /* 56px */
+  --fz-card-title:  clamp(1.125rem, 1.46vw, 1.75rem); /* 28px */
+  --fz-lead:        clamp(1rem,   1.61vw, 1.9375rem); /* 31px */
+  --fz-body:        clamp(0.9375rem, 1.04vw, 1.25rem);/* 20px */
+  --fz-sm:          0.875rem;
+  --fz-xs:          0.75rem;
+
+  /* ---- Layout --------------------------------------------------------- */
+  --container-max:  1760px; /* 1920 - (80 × 2) */
+  --gutter:         80px;
+  --header-h:       107px;
+
+  /* ---- Effect --------------------------------------------------------- */
+  --shadow-card:    0 4px 4px rgba(0, 0, 0, .25);
+  --shadow-glass:   inset 0 4px 10px rgba(0, 0, 0, .25);
+  --radius-pill:    50px;
+  --radius-card:    20px;
+  --ease:           cubic-bezier(.22, .61, .36, 1);
+}
+
+
+/* ==========================================================================
+   02. 리셋 & 베이스
+   ========================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body,
+h1, h2, h3, h4, p, ul, ol, li, figure, blockquote, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol { list-style: none; }
+
+body {
+  font-family: var(--font-base);
+  color: var(--c-gray-900);
+  line-height: 1.5;
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+address { font-style: normal; }
+
+/* 키보드 포커스는 항상 보이게 */
+:focus-visible {
+  outline: 3px solid var(--c-mint);
+  outline-offset: 3px;
+}
+
+/* 스크린리더 전용 텍스트 */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 본문 바로가기 링크 */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  z-index: 999;
+  padding: 12px 24px;
+  background: var(--c-ink);
+  color: var(--c-white);
+  border-radius: 0 0 8px 8px;
+  transition: top .2s var(--ease);
+}
+.skip-link:focus { top: 0; }
+
+
+/* ==========================================================================
+   03. 공통 레이아웃 유틸
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* 섹션 공통 헤드 (아이브로우 + 타이틀) */
+.section-head { text-align: center; }
+
+.section-head__eyebrow {
+  font-size: var(--fz-body);
+  letter-spacing: -.57px;
+  color: var(--c-gray-900);
+  margin-bottom: 18px;
+}
+
+.section-head__title {
+  font-size: var(--fz-h2);
+  font-weight: 700;
+  letter-spacing: -.57px;
+  line-height: 1.3;
+}
+.section-head__title strong { font-weight: 800; }
+
+/* 섹션 하단 CTA 정렬 */
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+
+/* ==========================================================================
+   04. 버튼 컴포넌트
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  transition: background-color .2s var(--ease),
+              color .2s var(--ease),
+              transform .2s var(--ease),
+              box-shadow .2s var(--ease);
+}
+.btn:active { transform: translateY(1px); }
+
+/* 헤더 : 로그인 (아웃라인) */
+.btn--outline {
+  height: 48px;
+  padding-inline: 28px;
+  border: 2px solid var(--c-forest);
+  color: var(--c-ink);
+  font-size: var(--fz-sm);
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+.btn--outline:hover { background: var(--c-forest); color: var(--c-white); }
+
+/* 헤더 : 회원가입 (솔리드) */
+.btn--primary {
+  height: 48px;
+  padding-inline: 28px;
+  background: var(--c-green);
+  color: var(--c-white);
+  font-size: var(--fz-sm);
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+.btn--primary:hover { background: #3aab81; }
+
+/* 섹션 CTA : 민트 알약형 */
+.btn--pill {
+  padding: 24px 64px;
+  border-radius: var(--radius-pill);
+  background: var(--c-mint);
+  color: var(--c-white);
+  font-size: var(--fz-card-title);
+  font-weight: 600;
+  letter-spacing: -.07px;
+  box-shadow: var(--shadow-card);
+}
+.btn--pill:hover { background: #00b6a5; box-shadow: 0 8px 18px rgba(0, 0, 0, .28); }
+
+/* 마이데이터 CTA : 다크 알약형 */
+.btn--dark {
+  padding: 19px 56px;
+  border-radius: 70px;
+  background: var(--c-ink-900);
+  color: var(--c-white);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -.57px;
+  box-shadow: var(--shadow-card);
+}
+.btn--dark:hover { background: #1d2939; }
+
+/* 푸터 검색 버튼 */
+.btn--search {
+  height: 48px;
+  padding-inline: 28px;
+  background: var(--c-blue);
+  border: 2px solid var(--c-blue);
+  color: var(--c-white);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+.btn--search:hover { background: #0353e9; border-color: #0353e9; }
+
+
+/* ==========================================================================
+   05. Header / GNB
+   ========================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--c-white);
+  transition: box-shadow .25s var(--ease);
+}
+/* JS가 스크롤 시 부여 → 헤더 하단 그림자 */
+.header.is-scrolled { box-shadow: 0 2px 12px rgba(0, 0, 0, .08); }
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: var(--header-h);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 16px var(--gutter);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+  min-width: 0;
+}
+.logo__symbol { width: 24px; height: 24px; }
+.logo__wordmark { width: 153px; height: 26px; object-fit: contain; }
+
+/* --- GNB --- */
+.gnb__list { display: flex; align-items: center; gap: 215px; }
+
+.gnb__link {
+  display: block;
+  padding: 12px 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--c-ink);
+  position: relative;
+}
+/* 밑줄 인터랙션 */
+.gnb__link::after {
+  content: "";
+  position: absolute;
+  left: 8px; right: 8px; bottom: 6px;
+  height: 2px;
+  background: var(--c-mint);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s var(--ease);
+}
+.gnb__link:hover::after,
+.gnb__link:focus-visible::after { transform: scaleX(1); }
+
+/* --- 유틸 --- */
+.header__utils {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  transition: opacity .2s var(--ease);
+}
+.icon-btn:hover { opacity: .6; }
+.icon-btn + .icon-btn { margin-left: 8px; }
+
+/* 모바일 햄버거 (기본 숨김) */
+.gnb-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+}
+.gnb-toggle span {
+  display: block;
+  width: 22px; height: 2px;
+  margin-inline: auto;
+  background: var(--c-ink);
+  transition: transform .25s var(--ease), opacity .2s var(--ease);
+}
+.gnb-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.gnb-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.gnb-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ==========================================================================
+   06. Hero
+   배경 이미지 : assets/images/hero-bg.jpg
+   ========================================================================== */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(480px, 62.5vw, 1200px);
+  background: #1a2b3c url("assets/images/hero-bg.jpg") center / cover no-repeat;
+  overflow: hidden;
+}
+
+/* 원본 딤 : 검정 30% */
+.hero__dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .3);
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 1;
+  padding: 10px 24px;
+  text-align: center;
+  color: var(--c-white);
+}
+
+.hero__title {
+  font-size: var(--fz-hero);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.44px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+}
+
+.hero__desc {
+  margin-top: 20px;
+  font-size: var(--fz-hero-desc);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -.56px;
+}
+
+
+/* ==========================================================================
+   07. Stats
+   ========================================================================== */
+.stats { padding: 66px var(--gutter); }
+
+.stats__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  flex-wrap: wrap;
+}
+
+.stats__item {
+  width: 300px;
+  text-align: center;
+  letter-spacing: -.57px;
+}
+
+.stats__label {
+  font-size: var(--fz-body);
+  font-weight: 500;
+  color: var(--c-gray-400);
+}
+
+.stats__value {
+  margin-top: 8px;
+  font-size: var(--fz-stat);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--c-teal-40);
+  font-variant-numeric: tabular-nums; /* 카운트업 시 폭 흔들림 방지 */
+}
+
+
+/* ==========================================================================
+   08. Account Book
+   ========================================================================== */
+.account-book { padding-block: 184px 190px; }
+
+/* 앱 목업 리스트 */
+.app-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 280px));
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 90px;
+}
+
+.app-card { display: flex; flex-direction: column; gap: 40px; }
+
+.app-card__thumb {
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.app-card:hover .app-card__thumb {
+  transform: translateY(-10px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .18);
+}
+.app-card__thumb img { width: 100%; }
+
+.app-card__txt {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding-left: 32px;
+  letter-spacing: -.57px;
+}
+
+.app-card__num {
+  flex: none;
+  font-size: var(--fz-body);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--c-gray-600);
+}
+
+.app-card__title {
+  font-size: var(--fz-card-title);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--c-gray-700);
+}
+
+
+/* ==========================================================================
+   09. Mydata
+   ========================================================================== */
+.mydata {
+  background: var(--c-teal);
+  padding-block: 102px;
+  overflow: hidden;
+}
+
+.mydata__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 740px) minmax(0, 1fr);
+  align-items: center;
+  gap: 60px;
+}
+
+.mydata__copy { color: var(--c-white); }
+
+.mydata__eyebrow {
+  font-size: 1.5625rem; /* 25px */
+  font-weight: 300;
+  letter-spacing: -.57px;
+}
+
+.mydata__title {
+  margin-top: 12px;
+  font-size: var(--fz-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.57px;
+}
+.mydata__title strong { font-weight: 800; }
+
+.mydata__desc {
+  margin-top: 24px;
+  font-size: var(--fz-lead);
+  line-height: 1.7;
+  letter-spacing: -.57px;
+  color: var(--c-mint-light);
+}
+
+.mydata__copy .btn--dark { margin-top: 80px; }
+
+/* 이미지 콜라주 */
+.mydata__visual {
+  position: relative;
+  aspect-ratio: 1023 / 714;
+}
+.mydata__img { position: absolute; }
+
+.mydata__img--main {
+  left: 12%; top: 6%;
+  width: 92%;
+  border-radius: 24px;
+}
+.mydata__img--badge-a {
+  left: 55%; top: 0;
+  width: 17.6%;
+}
+.mydata__img--badge-b {
+  left: 10%; bottom: 0;
+  width: 17.6%;
+}
+
+
+/* ==========================================================================
+   10. DNA Test
+   ========================================================================== */
+.dna {
+  background: var(--c-navy-deep);
+  padding-block: 150px;
+  color: var(--c-white);
+  overflow: hidden;
+}
+
+.dna__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 553px);
+  align-items: center;
+  gap: 60px;
+}
+
+/* 캐릭터 카드 : 겹쳐 배치 */
+.dna__cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 12px;
+}
+
+.dna-card { position: relative; }
+.dna-card img { width: 100%; }
+
+/* 원본의 계단식 배치를 오프셋으로 재현 */
+.dna-card--1 { transform: translateY(-40px); }
+.dna-card--2 { transform: translateY(30px); }
+.dna-card--3 { transform: translateY(-10px); }
+.dna-card--4 { display: none; } /* 데스크톱: 4번째 카드는 원본상 겹침이 심해 숨김 */
+
+.dna-card__label {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  width: max-content;
+  text-align: center;
+}
+.dna-card__gene {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: .75;
+}
+.dna-card__result {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.dna__title {
+  font-size: var(--fz-h2);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.57px;
+  color: #fffbfb;
+}
+
+.dna__desc {
+  margin-top: 24px;
+  font-size: var(--fz-body);
+  line-height: 1.7;
+  letter-spacing: -.57px;
+  color: #fbfbfb;
+}
+
+.dna__copy .btn--pill { margin-top: 56px; }
+
+
+/* ==========================================================================
+   11. Features
+   ========================================================================== */
+.features { padding-block: 138px; }
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 90px;
+}
+
+.feature { text-align: center; }
+
+.feature__icon {
+  width: min(300px, 100%);
+  margin-inline: auto;
+  transition: transform .35s var(--ease);
+}
+.feature:hover .feature__icon { transform: translateY(-8px) scale(1.03); }
+
+.feature__title {
+  margin-top: 50px;
+  font-size: var(--fz-h3);
+  font-weight: 600;
+  color: var(--c-gray-900);
+}
+
+.feature__desc {
+  margin-top: 18px;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--c-gray-900);
+}
+
+
+/* ==========================================================================
+   12. Services (글래스 카드)
+   ========================================================================== */
+.services {
+  background: var(--c-navy);
+  padding-block: 150px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 62px 25px;
+}
+
+.service-card {
+  border-radius: var(--radius-card);
+  /* 원본 "유리" 이펙트 : 반투명 + 블러 + 이너 섀도 */
+  background: rgba(255, 255, 255, .06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-glass);
+  transition: background-color .25s var(--ease), transform .25s var(--ease);
+}
+.service-card:hover { background: rgba(255, 255, 255, .12); transform: translateY(-6px); }
+
+.service-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  height: 100%;
+}
+
+.service-card img { width: 150px; height: 150px; object-fit: cover; }
+
+.service-card__title {
+  padding: 10px;
+  font-size: var(--fz-card-title);
+  font-weight: 500;
+  color: var(--c-white);
+}
+
+
+/* ==========================================================================
+   13. Footer
+   ========================================================================== */
+.footer {
+  background: var(--c-cool-60);
+  color: var(--c-white);
+  padding-block: 48px;
+}
+.footer .container { display: flex; flex-direction: column; gap: 48px; }
+
+/* --- 상단 --- */
+.footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.footer__logo { width: 200px; object-fit: contain; }
+.footer__slogan {
+  margin-top: 10px;
+  font-size: var(--fz-sm);
+  line-height: 1.6;
+  color: var(--c-gray-100);
+}
+
+.footer__search { display: flex; align-items: center; gap: 16px; }
+
+.footer__search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 320px;
+  padding: 12px 6px;
+  background: var(--c-cool-10);
+  border-bottom: 1px solid var(--c-cool-30);
+}
+.footer__search-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--fz-sm);
+  color: var(--c-gray-900);
+}
+.footer__search-field input:focus { outline: none; }
+.footer__search-field:focus-within { border-bottom-color: var(--c-blue); }
+
+.footer__divider {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--c-cool-30);
+}
+
+/* --- 중단 : 사이트맵 --- */
+.footer__middle {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 80px;
+}
+
+.footer__col-title {
+  padding-block: 12px;
+  font-size: var(--fz-sm);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.footer__col-title--sns { margin-top: 24px; }
+
+.footer__links { display: flex; flex-direction: column; gap: 16px; }
+.footer__links a {
+  font-size: 0.8125rem; /* 13px */
+  transition: opacity .2s var(--ease);
+}
+.footer__links a:hover { opacity: .7; text-decoration: underline; }
+
+.footer__app-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer__app-links img { height: 40px; width: auto; }
+
+.footer__sns { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+.footer__sns a { display: block; transition: opacity .2s var(--ease); }
+.footer__sns a:hover { opacity: .7; }
+
+/* --- 하단 --- */
+.footer__bottom { display: flex; flex-direction: column; gap: 30px; }
+
+.footer__policy { display: flex; flex-wrap: wrap; gap: 24px; }
+.footer__policy a {
+  font-size: var(--fz-xs);
+  line-height: 1.4;
+  color: var(--c-gray-100);
+}
+.footer__policy a:hover { text-decoration: underline; }
+
+.footer__company {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  font-size: 0.6875rem; /* 11px */
+  line-height: 1.4;
+  color: var(--c-gray-100);
+}
+.footer__company-row { flex-basis: 100%; font-size: var(--fz-xs); }
+.footer__company a:hover { text-decoration: underline; }
+
+.footer__note,
+.footer__copyright {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+.footer__copyright { opacity: .85; }
+
+
+/* ==========================================================================
+   14. 모션 : 스크롤 리빌
+   JS가 뷰포트 진입 시 .is-visible 부여
+   ========================================================================== */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.js-reveal.is-visible { opacity: 1; transform: none; }
+
+/* 카드가 순차적으로 나타나도록 지연 */
+.app-list .js-reveal:nth-child(2),
+.feature-list .js-reveal:nth-child(2),
+.service-grid .js-reveal:nth-child(2) { transition-delay: .08s; }
+.app-list .js-reveal:nth-child(3),
+.feature-list .js-reveal:nth-child(3),
+.service-grid .js-reveal:nth-child(3) { transition-delay: .16s; }
+.app-list .js-reveal:nth-child(4),
+.feature-list .js-reveal:nth-child(4),
+.service-grid .js-reveal:nth-child(4) { transition-delay: .24s; }
+.service-grid .js-reveal:nth-child(5) { transition-delay: .32s; }
+.service-grid .js-reveal:nth-child(6) { transition-delay: .40s; }
+
+/* 모션 최소화 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .js-reveal { opacity: 1; transform: none; }
+}
+
+
+/* ==========================================================================
+   15. 반응형
+   ========================================================================== */
+
+/* --- ~1600px : 여백 축소, GNB 간격 축소 ---------------------------------- */
+@media (max-width: 1600px) {
+  :root { --gutter: 48px; }
+  .gnb__list { gap: clamp(24px, 8vw, 120px); }
+  .account-book { padding-block: 120px; }
+  .feature-list { gap: 48px; }
+}
+
+/* --- ~1280px : 앱 목업 2열, 서비스 카드 여백 축소 ------------------------- */
+@media (max-width: 1280px) {
+  :root { --gutter: 32px; }
+
+  .app-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px 32px;
+    justify-content: center;
+  }
+  .app-card__thumb img { margin-inline: auto; }
+
+  .stats__list { gap: 40px; }
+  .stats__item { width: min(300px, 30%); }
+
+  .mydata__inner { grid-template-columns: 1fr; gap: 64px; }
+  .mydata__copy .btn--dark { margin-top: 48px; }
+
+  .dna__inner { grid-template-columns: 1fr; gap: 64px; }
+  .dna__copy { order: -1; } /* 모바일에선 카피를 먼저 */
+
+  .feature-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 32px; }
+  .services { padding-block: 100px; }
+}
+
+/* --- ~1024px : GNB 드로어 전환 ------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --header-h: 72px; }
+
+  .gnb-toggle { display: flex; }
+
+  /* GNB → 헤더 아래 드롭 패널 */
+  .gnb {
+    position: absolute;
+    left: 0; right: 0;
+    top: 100%;
+    background: var(--c-white);
+    border-top: 1px solid #e9ecef;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, .08);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s var(--ease);
+  }
+  .gnb.is-open { max-height: 320px; }
+
+  .gnb__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px var(--gutter) 16px;
+  }
+  .gnb__link { padding: 16px 0; font-size: 1.0625rem; }
+  .gnb__link::after { left: 0; right: 0; bottom: 10px; }
+
+  .header__inner { position: relative; }
+  .header__utils { gap: 12px; }
+
+  /* 로그인/회원가입은 드로어 안이 아닌 헤더 우측 유지, 폭만 축소 */
+  .btn--outline,
+  .btn--primary { height: 40px; padding-inline: 16px; }
+
+  .account-book { padding-block: 90px; }
+  .features { padding-block: 90px; }
+  .dna { padding-block: 100px; }
+
+  .footer__middle { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+}
+
+/* --- ~768px : 1열 전환 --------------------------------------------------- */
+@media (max-width: 768px) {
+  :root { --gutter: 20px; }
+
+  .hero { min-height: 480px; }
+
+  .stats { padding-block: 48px; }
+  .stats__list { gap: 32px; }
+  .stats__item { width: 100%; }
+
+  .app-list { grid-template-columns: minmax(0, 320px); justify-content: center; }
+  .app-card__txt { padding-left: 0; justify-content: center; }
+  .section-cta { margin-top: 48px; }
+
+  /* 유전자 카드 : 겹침 해제 후 가로 스크롤 */
+  .dna__cards {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dna-card {
+    flex: 0 0 62%;
+    scroll-snap-align: center;
+    transform: none !important;
+  }
+  .dna-card--4 { display: block; }
+
+  .feature-list { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .feature__icon { width: min(220px, 70%); }
+  .feature__title { margin-top: 24px; }
+
+  .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .service-card img { width: 110px; height: 110px; }
+  .services { padding-block: 72px; }
+
+  .footer__top { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .footer__search { width: 100%; }
+  .footer__search-field { flex: 1; width: auto; }
+
+  .btn--pill { padding: 18px 40px; }
+  .btn--dark { padding: 16px 36px; }
+}
+
+/* --- ~480px : 최소 폭 대응 ----------------------------------------------- */
+@media (max-width: 480px) {
+  .header__utils .icon-btn { display: none; } /* 아이콘 숨기고 CTA 우선 노출 */
+  .btn--outline { display: none; }            /* 회원가입만 노출 */
+
+  .logo__wordmark { width: 120px; }
+
+  .service-grid { grid-template-columns: minmax(0, 1fr); }
+  .dna-card { flex-basis: 78%; }
+
+  .footer__middle { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .footer__policy { gap: 12px 16px; }
+}

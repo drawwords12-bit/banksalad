@@ -1,0 +1,979 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&family=Anek+Telugu:wght@800&display=swap');
+
+@font-face {
+    font-family: 'ROH HOE-CHAN';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/ROEHOE-CHAN.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* ----- brand_color ----- */
+    --kooksoondang_green: #D4E400;
+    --kooksoondang_green_lighter: #FCFFD5;
+    --kooksoondang_orange: #F29556;
+    --kooksoondang_lighter: #FFD7BB;
+    --bekseju_darker_cold: #232323;
+    --bekseju_darker_warm: #272625;
+    --bg_color: #FAF8F7;
+
+    /* ----- dark_color ----- */
+    --bekseju_dark1: #4C3B33;
+    --bekseju_dark2: #5D504A;
+    --bekseju_dark3: #8D7E77;
+    --bekseju_dark4: #C7B7AC;
+
+    /* ----- light_color ----- */
+    --makgeolli_light1: #EADFD8;
+    --makgeolli_light2: #F6F0EC;
+    --makgeolli_light3: #F8F2EF;
+    --makgeolli_light4: #FAF8F7;
+    --makgeolli_White: #FFFFFF;
+
+    /* ----- noise (듀오 / X 0.5 Y 0.5 / 밀도 20%) ----- */
+    --noise: 0.5 0.5 20% #B4A096 60% #FFFFFF 60%;
+
+    /* ----- 폰트 패밀리 ----- */
+    --font-Pretendard: 'Pretendard', sans-serif;
+    --font-Albert_Sans: 'Albert Sans', sans-serif;
+    --font-ROH_HOE-CHAN: 'ROH HOE-CHAN', serif;
+    --font-Mulish: 'Mulish', sans-serif;
+
+    /* Body Large 20px / Semibold */
+    --Body_Large_20px-Semibold: 600 20px/1.7 var(--font-Mulish);
+    --Body_Large_20px-Semibold-letter-spacing: 0px;
+
+    /* Text_tab (Mobile/Tablet Banner) */
+    --tab-Banner_64R: 400 64px/0.9 var(--font-Pretendard);
+    --tab-Banner_64R-letter-spacing: -2px;
+    --tab-Banner_64B: 700 64px/0.9 var(--font-Pretendard);
+    --tab-Banner_64B-letter-spacing: -2px;
+
+    /* Text_M (Mobile Display) */
+    --M-Display_32B: 700 32px/1.3 var(--font-Pretendard);
+    --M-Display_32B-letter-spacing: -2px;
+
+    /* Text_PC */
+    --PC-Banner_Point_96R: 400 96px/0.9 var(--font-ROH_HOE-CHAN);
+    --PC-Banner_Point_96R-letter-spacing: -2px;
+    --PC-Banner_96R: 400 96px/0.9 var(--font-Pretendard);
+    --PC-Banner_96R-letter-spacing: -2px;
+    --PC-Banner_96B: 700 96px/0.9 var(--font-Pretendard);
+    --PC-Banner_96B-letter-spacing: -2px;
+    --PC-Display1_86B: 700 86px/1.3 var(--font-Pretendard);
+    --PC-Display1_86B-letter-spacing: -2px;
+    --PC-Display2_64R: 400 64px/1.3 var(--font-Albert_Sans);
+    --PC-Display2_64R-letter-spacing: -2px;
+    --PC-Display2_64B: 700 64px/1.3 var(--font-Pretendard);
+    --PC-Display2_64B-letter-spacing: -2px;
+    --PC-Display3_48R: 400 48px/1.3 var(--font-Albert_Sans);
+    --PC-Display3_48R-letter-spacing: -2px;
+    --PC-Display3_48B: 700 48px/1.3 var(--font-Pretendard);
+    --PC-Display3_48B-letter-spacing: -2px;
+
+    /* Heading */
+    --PC-Heading1_32B: 700 32px/1.3 var(--font-Pretendard);
+    --PC-Heading1_32B-letter-spacing: 0px;
+    --PC-Heading1_32R: 400 32px/1.3 var(--font-Pretendard);
+    --PC-Heading1_32R-letter-spacing: 0px;
+    --PC-Heading2_28B: 700 28px/1.3 var(--font-Pretendard);
+    --PC-Heading2_28B-letter-spacing: 0px;
+    --PC-Heading1_28R: 400 28px/1.3 var(--font-Pretendard);
+    --PC-Heading1_28R-letter-spacing: 0px;
+    --PC-Heading3_24B: 700 24px/1.3 var(--font-Pretendard);
+    --PC-Heading3_24B-letter-spacing: 0px;
+    --PC-Heading1_24R: 400 24px/1.3 var(--font-Pretendard);
+    --PC-Heading1_24R-letter-spacing: 0px;
+
+    /* Body */
+    --PC-Body_Large_20SB: 600 20px/1.7 var(--font-Pretendard);
+    --PC-Body_Large_20SB-letter-spacing: 0px;
+    --PC-point_20R: 400 20px/1.7 var(--font-ROH_HOE-CHAN);
+    --PC-point_20R-letter-spacing: 0px;
+    --PC-Body_Medium_18SB: 600 18px/1.7 var(--font-Pretendard);
+    --PC-Body_Medium_18SB-letter-spacing: 0px;
+    --PC-Body_Normal_16SB: 600 16px/1.7 var(--font-Pretendard);
+    --PC-Body_Normal_16SB-letter-spacing: 0px;
+    --PC-Body_Small_14SB: 600 14px/1.7 var(--font-Pretendard);
+    --PC-Body_Small_14SB-letter-spacing: 0px;
+    --PC-Body_Small_14M: 500 14px/1.7 var(--font-Pretendard);
+    --PC-Body_Small_14M-letter-spacing: 0px;
+    --PC-Body_Small_14L: 300 14px/1.7 var(--font-Pretendard);
+    --PC-Body_Small_14L-letter-spacing: 0px;
+
+    /* ----- layout ----- */
+    --gutter-x: clamp(1.5rem, 5.2vw, 6.25rem);
+    --gutter-hero-x: clamp(1.5rem, 9.4vw, 11.25rem);
+    --page-max: 107.5rem;
+    /* 1720px */
+
+    /* ----- colors used only on this page ----- */
+    --card-chestnut: #6D4C40;
+    --card-draft: #3E9B4B;
+    --card-banana: #FFC943;
+    --card-bekseju-frame: #F8981C;
+    --card-banana-best: #FFDC33;
+    --food-chicken: #B32D18;
+    --food-ribs: #F3A765;
+    --food-bossam: #F5DB9E;
+    --btn-reset: #7B644F;
+    --btn-check: #4C3B33;
+}
+
+/* ---------- base ---------- */
+/* 헤더·푸터 스타일이 기대는 공통 기본값. reset.css 는 button / box-sizing / img 를
+   손대지 않아서 이 블록이 없으면 푸터 버튼에 브라우저 기본 회색 배경이 남음 */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-width: 100%;
+    overflow-x: clip;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    min-width: max(20rem, 100%);
+    overflow-x: clip;
+    color: var(--bekseju_darker_cold);
+    background: var(--makgeolli_White);
+    font-family: var(--font-Pretendard);
+    line-height: 1.5;
+}
+
+main {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+address {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+address {
+    font-style: normal;
+}
+
+section[id] {
+    scroll-margin-top: 6.5rem;
+}
+
+/* ---------- lenis (부드러운 스크롤) ---------- */
+/* lenis 배포본의 lenis.css 내용. 요청을 하나 줄이려고 여기에 함께 둠 */
+
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+    overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+    pointer-events: none;
+}
+
+/* ---------- shared header ---------- */
+
+.site_header,
+.site_footer {
+    width: 100%;
+    max-width: none;
+}
+
+.site_header {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+    will-change: transform, opacity;
+}
+
+.site_header.is_header_hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.site_header:focus-within {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.site_header_inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 200px);
+    max-width: 1720px;
+    margin: 0 auto;
+    padding: 1.25rem 0;
+}
+
+.site_header_left {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 5rem);
+}
+
+.site_logo {
+    display: inline-flex;
+}
+
+.site_logo_mark {
+    display: block;
+    width: clamp(9rem, 11vw, 16.875rem);
+    height: auto;
+    overflow: visible;
+}
+
+.primary_nav ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.primary_nav a,
+.primary_nav .is_static {
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    padding: 0 0.625rem;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1vw, 1.25rem);
+    color: var(--bekseju_dark1);
+}
+
+.primary_nav a {
+    transition: color 150ms ease;
+}
+
+.primary_nav a:hover {
+    color: var(--kooksoondang_orange);
+}
+
+.primary_nav .is_disabled {
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    padding: 0 0.625rem;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1vw, 1.25rem);
+    color: var(--bekseju_dark4);
+    cursor: default;
+    pointer-events: none;
+}
+
+.search_button img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* 햄버거 버튼: 태블릿 폭에서만 드러남. 서랍 마크업이 있는 페이지에만 놓임 */
+.nav_toggle {
+    display: none;
+    position: relative;
+    width: 2rem;
+    height: 1.5rem;
+    padding: 0;
+    flex: 0 0 auto;
+}
+
+.nav_toggle_bars,
+.nav_toggle_bars::before,
+.nav_toggle_bars::after {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--bekseju_dark1);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
+}
+
+.nav_toggle_bars {
+    top: calc(50% - 1.5px);
+}
+
+.nav_toggle_bars::before {
+    content: "";
+    top: -9px;
+}
+
+.nav_toggle_bars::after {
+    content: "";
+    top: 9px;
+}
+
+/* 열려 있을 때는 가운데 줄을 지우고 위아래 줄을 X 로 모음 */
+.nav_toggle[aria-expanded="true"] .nav_toggle_bars {
+    background: transparent;
+}
+
+.nav_toggle[aria-expanded="true"] .nav_toggle_bars::before {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.nav_toggle[aria-expanded="true"] .nav_toggle_bars::after {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ---------- shared nav drawer ---------- */
+
+.nav_drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.nav_drawer.is_nav_open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.nav_drawer_scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(35, 35, 35, 0.45);
+    opacity: 0;
+    transition: opacity 280ms ease;
+}
+
+.nav_drawer.is_nav_open .nav_drawer_scrim {
+    opacity: 1;
+}
+
+.nav_drawer_panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(20rem, 78vw);
+    padding: 6rem 2.5rem;
+    background: var(--makgeolli_light4);
+    box-shadow: 0.5rem 0 2.5rem rgba(35, 35, 35, 0.18);
+    transform: translateX(-100%);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav_drawer.is_nav_open .nav_drawer_panel {
+    transform: none;
+}
+
+.nav_drawer_panel ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.nav_drawer_panel a,
+.nav_drawer_panel .is_disabled {
+    display: block;
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    color: var(--bekseju_dark1);
+}
+
+.nav_drawer_panel .is_disabled {
+    color: var(--bekseju_dark4);
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nav_drawer_scrim,
+    .nav_drawer_panel,
+    .nav_toggle_bars,
+    .nav_toggle_bars::before,
+    .nav_toggle_bars::after {
+        transition: none;
+    }
+}
+
+/* 헤더가 space-between 이라 이 묶음이 커지면 왼쪽으로 자람 */
+.site_search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.site_search_input {
+    width: 0;
+    min-width: 0;
+    height: 1.4rem;
+    padding: 0;
+    border: 0;
+    border-bottom: 2px solid var(--bekseju_dark2);
+    border-radius: 0;
+    background: none;
+    outline: none;
+    font: inherit;
+    font-size: clamp(0.9rem, 1vw, 1.125rem);
+    line-height: 1;
+    color: var(--bekseju_dark1);
+    opacity: 0;
+    transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        padding 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
+}
+
+.site_search.is_search_open .site_search_input {
+    width: clamp(6.667rem, 16vw, 14.667rem);
+    padding: 0 0.25rem 0.2rem;
+    opacity: 1;
+}
+
+/* 검색 취소 버튼이 열림 전에 비쳐 보이지 않도록 */
+.site_search_input::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site_header {
+        transition: none;
+    }
+
+    .site_search_input {
+        transition: none;
+    }
+}
+
+/* ---------- shared side navigation ---------- */
+
+.side_nav {
+    --side-nav-radius: 2.5rem;
+    --side-nav-handle-width: 30px;
+    --side-nav-handle-height: 125px;
+    --side-nav-handle-radius: 8px;
+    --side-nav-surface: var(--bekseju_dark1);
+
+    position: fixed;
+    z-index: 40;
+    isolation: isolate;
+    left: 0;
+    top: calc(50% + 300px);
+    transform: translate(-100%, -50%);
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.75rem;
+    background: var(--side-nav-surface);
+    border-radius: 0 var(--side-nav-radius) var(--side-nav-radius) 0;
+}
+
+.side_nav:hover,
+.side_nav:focus-within {
+    transform: translate(0, -50%);
+}
+
+.side_nav::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: calc(100% - 1px);
+    width: var(--side-nav-handle-width);
+    height: var(--side-nav-handle-height);
+    transform: translateY(-50%);
+    pointer-events: auto;
+    background: var(--side-nav-surface);
+    border-radius: 0 var(--side-nav-handle-radius) var(--side-nav-handle-radius) 0;
+}
+
+.side_nav ul {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.side_nav li a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-left: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--makgeolli_White);
+    white-space: nowrap;
+    transition: color 260ms ease, font-size 260ms ease, padding-left 260ms ease;
+}
+
+.side_nav li a img {
+    width: 0.7rem;
+    height: 0.7rem;
+    transition: width 260ms ease, height 260ms ease;
+}
+
+.side_nav li.is_current a {
+    padding-left: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--kooksoondang_green);
+}
+
+.side_nav li.is_current a img {
+    width: 1.8rem;
+    height: 1.25rem;
+}
+
+.side_nav li a img.is_icon_animating {
+    animation: side_nav_icon_in 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes side_nav_icon_in {
+    from {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ---------- shared footer ---------- */
+
+.site_footer {
+    position: relative;
+    background: var(--bekseju_dark2);
+    padding: clamp(3rem, 5vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
+}
+
+.site_footer_wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transform: translateY(-18.4%);
+    z-index: 0;
+}
+
+.site_footer_inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter-x);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.footer_left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 38.75rem;
+}
+
+.footer_logo img {
+    width: clamp(10rem, 14vw, 13.875rem);
+}
+
+.footer_links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer_links button {
+    font-size: 1.25rem;
+    color: var(--bekseju_dark4);
+}
+
+.footer_links li:first-child button {
+    font-weight: 600;
+    color: var(--makgeolli_light3);
+}
+
+.footer_left small {
+    font-size: 1rem;
+    color: var(--bekseju_dark3);
+}
+
+.footer_right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2rem;
+    max-width: 29.5rem;
+}
+
+.family_site {
+    position: relative;
+}
+
+.family_site_button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 2.5rem;
+    border-radius: 0.25rem 0.25rem 2rem 2rem;
+    background: var(--btn-check);
+    color: var(--makgeolli_light4);
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.family_site_button img {
+    width: 1.125rem;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.family_site.is_family_open .family_site_button img {
+    transform: rotate(180deg);
+}
+
+/* 패밀리 사이트 목록: 버튼 위로 열림.
+   아래쪽을 축으로 접어 뒀다가 펴지므로 버튼에서 자라 나오는 것처럼 보임.
+   모서리는 버튼(아래가 둥근 모양)과 위아래 대칭이 되게 위쪽을 둥글게 둠 */
+.family_site_list {
+    position: absolute;
+    /* 버튼 폭에 가두면 긴 이름이 넘쳐서 그 줄만 오른쪽으로 밀려 보임.
+       버튼 오른쪽 끝에 붙인 채 가장 긴 이름에 맞춰 넓어지게 두면 다섯 줄이 같은 중심에 놓임 */
+    right: 0;
+    left: auto;
+    width: max-content;
+    min-width: 100%;
+    bottom: calc(100% + 0.5rem);
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+    border-radius: 2rem 2rem 0.25rem 0.25rem;
+    background: var(--btn-check);
+    opacity: 0;
+    transform: translateY(0.75rem) scaleY(0.7);
+    transform-origin: bottom center;
+    /* 닫힐 때는 다 접힌 뒤에 사라져야 마지막 프레임이 튀지 않음 */
+    visibility: hidden;
+    transition: opacity 240ms ease,
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 320ms;
+}
+
+.family_site.is_family_open .family_site_list {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition: opacity 240ms ease,
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s;
+}
+
+.family_site_list button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1.75rem;
+    color: var(--makgeolli_light4);
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    transition: color 200ms ease;
+}
+
+/* 아직 연결된 주소가 없는 항목이라 푸터의 다른 준비 중 링크와 같은 톤으로 둠 */
+.family_site_list button:disabled {
+    color: var(--bekseju_dark4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .family_site_list,
+    .family_site.is_family_open .family_site_list,
+    .family_site_button img {
+        transition: none;
+    }
+}
+
+.footer_right address {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    color: var(--bekseju_dark4);
+    font-size: 1.125rem;
+    text-align: right;
+}
+
+.footer_sns {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* 아이콘 SVG 자체에 색(#8D7E77)과 여백이 들어 있어 원형 배경 없이 그대로 씀 */
+.footer_sns a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer_sns img {
+    width: 3.5rem;
+}
+
+/* ---------- tablet (<= 768px) ---------- */
+/* 헤더는 햄버거 + 서랍으로 바뀜. 서랍 마크업이 아직 없는 페이지는 :has 로 걸러 기존 배치를 유지함 */
+
+@media (max-width: 48rem) {
+    .site_header_inner {
+        width: calc(100% - 5rem);
+        padding: 2.375rem 0;
+    }
+
+    .site_header:has(.nav_toggle) .site_header_left {
+        gap: 1.5625rem;
+    }
+
+    .site_header:has(.nav_toggle) .nav_toggle {
+        display: block;
+    }
+
+    .site_header:has(.nav_toggle) .primary_nav {
+        display: none;
+    }
+
+    .site_logo_mark {
+        width: 12.5rem;
+    }
+
+    /* 태블릿 디자인에는 섹션 바로가기 레일이 없음 */
+    .side_nav {
+        display: none;
+    }
+
+    .site_footer {
+        padding: 4rem 0 3rem;
+    }
+
+    .site_footer_inner {
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+    }
+
+    .footer_left {
+        flex: 1 1 auto;
+        max-width: none;
+        gap: 1.5rem;
+    }
+
+    .footer_right {
+        flex: 0 0 auto;
+        max-width: none;
+        gap: 1.5rem;
+    }
+
+    .footer_logo img {
+        width: 13.8125rem;
+    }
+
+    .footer_links {
+        gap: 0.35rem;
+    }
+
+    .footer_links button {
+        font-size: 0.9375rem;
+    }
+
+    .footer_left small {
+        font-size: 0.8125rem;
+    }
+
+    .family_site_button {
+        padding: 0.75rem 2rem;
+        font-size: 1.0625rem;
+    }
+
+    .footer_right address {
+        font-size: 0.9375rem;
+    }
+
+    .footer_sns {
+        gap: 1.125rem;
+    }
+
+    .footer_sns img {
+        width: 2.375rem;
+    }
+}
+
+/* ---------- mobile (<= 480px) ---------- */
+/* 360px 시안. 로고가 가운데로 오고 푸터는 한 단으로 접힘 */
+
+@media (max-width: 30rem) {
+    .site_header_inner {
+        position: relative;
+        width: calc(100% - 2rem);
+        padding: 1.25rem 0;
+    }
+
+    /* 햄버거와 검색은 양 끝, 로고는 화면 정중앙 */
+    .site_header:has(.nav_toggle) .site_logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .site_logo_mark {
+        width: 10.125rem;
+    }
+
+    .nav_toggle {
+        width: 1.75rem;
+        height: 1.125rem;
+    }
+
+    .nav_toggle_bars::before {
+        top: -7px;
+    }
+
+    .nav_toggle_bars::after {
+        top: 7px;
+    }
+
+    .nav_toggle[aria-expanded="true"] .nav_toggle_bars::before {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav_toggle[aria-expanded="true"] .nav_toggle_bars::after {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .site_footer {
+        padding: 4rem 0 3.75rem;
+    }
+
+    /* 로고·링크 / SNS 가 한 줄을 나눠 쓰고, 패밀리 사이트가 그 아래 폭을 다 씀 */
+    .site_footer_inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "left sns"
+            "family family";
+        align-items: end;
+        gap: 1.75rem 1rem;
+        padding: 0 1rem;
+    }
+
+    .footer_left {
+        grid-area: left;
+        gap: 1.125rem;
+    }
+
+    /* 자식들을 위 그리드 칸에 직접 앉힘 */
+    .footer_right {
+        display: contents;
+    }
+
+    .footer_sns {
+        grid-area: sns;
+        gap: 0.625rem;
+    }
+
+    .family_site {
+        grid-area: family;
+    }
+
+    /* 시안에는 주소·대표·저작권 줄이 없음 */
+    .footer_right address,
+    .footer_left small {
+        display: none;
+    }
+
+    .footer_logo img {
+        width: 6.9375rem;
+    }
+
+    .footer_links {
+        gap: 0;
+    }
+
+    .footer_links button {
+        font-size: 0.875rem;
+    }
+
+    .footer_sns img {
+        width: 1.6875rem;
+    }
+
+    .family_site_button {
+        justify-content: center;
+        width: 100%;
+        padding: 0.625rem 1rem;
+        border-radius: 0.25rem 0.25rem 1.5rem 1.5rem;
+        font-size: 1.0625rem;
+    }
+
+    .family_site_list {
+        right: auto;
+        left: 50%;
+        transform: translate(-50%, 0.75rem) scaleY(0.7);
+    }
+
+    .family_site.is_family_open .family_site_list {
+        transform: translate(-50%, 0);
+    }
+}
