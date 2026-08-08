@@ -314,9 +314,10 @@
 /* ---------- Taste / Experience Filter ---------- */
 
 .experience_filter {
-  padding-block: clamp(3.75rem, 6.3vw, 7.5rem) 0;
+  padding-block: clamp(3rem, 4.5vw, 5rem) 0;
   text-align: center;
 }
+
 
 .experience_filter_title {
   font: 700 clamp(1.5rem, 2.1vw, 2.5rem)/1.3 var(--font-Pretendard);
@@ -433,9 +434,14 @@
 /* ---------- Product Showcase ---------- */
 
 .product_showcase {
-  padding-block: clamp(3.75rem, 8.1vw, 9.75rem) clamp(3.75rem, 7vw, 8.5rem);
+  /* 기존보다 위쪽 간격 대폭 축소 */
+  padding-block:
+    clamp(2rem, 3.5vw, 4rem)
+    clamp(3.75rem, 7vw, 8.5rem);
+
   text-align: center;
 }
+
 
 .product_showcase_title {
   font: var(--PC-Display3_48B);
@@ -1113,7 +1119,7 @@ min-height: 100svh;
 
 .experience_filter {
   position: relative;
-  min-height: 100svh;
+  min-height: 40svh;
 
   background: var(--makgeolli_light4);
 }
